@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 //MediatR allows our api controllers to get data from the database 
+//Activities are handlers = get data and return in a certain format
 namespace Application.Activities
 {
     public class List

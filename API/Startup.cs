@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Application.Activities;
 
 namespace API
 {
@@ -30,6 +32,9 @@ namespace API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
                 });
             });
+            //we want to use mediatr using dependecny injection
+            //only need to tell mediator about one handler and then it will reference that assembly for any others
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
         }
 
