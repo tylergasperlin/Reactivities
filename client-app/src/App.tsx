@@ -2,8 +2,7 @@ import './App.css';
 
 import axios from 'axios';
 import React from 'react';
-import { Header, Icon } from 'semantic-ui-react';
-import { List } from 'semantic-ui-react';
+import { Header, Icon, List } from 'semantic-ui-react';
 
 import logo from './logo.svg';
 
@@ -33,14 +32,12 @@ const App: React.FC = () => {
                 <Icon name='plug' />
                 <Header.Content>Reactivities</Header.Content>
             </Header>
-                <img src={logo} className='App-logo' alt='logo' />
-                <List>
-                    {values.map((value: any) => {
-                        return (
-                            <List.Item key={value.id}>{value.name}</List.Item>
-                        );
-                    })}
-                </List>
+            <img src={logo} className='App-logo' alt='logo' />
+            <List>
+                {values.map((value: any) => {
+                    return <List.Item key={value.id}>{value.name}</List.Item>;
+                })}
+            </List>
         </div>
     );
 };
