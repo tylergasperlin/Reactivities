@@ -23,10 +23,11 @@ namespace Application.Activities
                 _context = context;
 
             }
+            //cancellation request - if user refreshes or aborts their request what happends
             public async Task<Activity> Handle(Query request, CancellationToken cancellationToken)
             {
                 var activity = await _context.Activities.FindAsync(request.Id);
-
+                
                 return activity;
             }
         }

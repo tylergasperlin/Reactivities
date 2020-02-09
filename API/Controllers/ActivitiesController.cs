@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Activities;
 using Domain;
@@ -21,10 +22,15 @@ namespace API.Controllers
         }
 
         //{{url}}/api/activities/3eccaab3-3252-45c8-beda-21a25a5edad6
+        //cancelation token is implemented in list.cs 
+        //when user cancels their requests or refreshes our application will also stop oif list.cs and
+        // the apicontorller are configured with an cancellationToken
+        //we wont use cancellation toke nout of this project from here on due to complexity
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List()
+
+        public async Task<ActionResult<List<Activity>>> List(CancellationToken ct)
         {
-            return await _mediator.Send(new List.Query());
+            return await _mediator.Send(new List.Query(), ct);
         }
 
         [HttpGet("{id}")]
