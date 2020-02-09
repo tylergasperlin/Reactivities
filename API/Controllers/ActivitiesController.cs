@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Activities;
@@ -11,6 +12,7 @@ namespace API.Controllers
     [ApiController]
     public class ActivitiesController : ControllerBase
     {
+        //{{url}}/api/activities/
         private readonly IMediator _mediator;
         public ActivitiesController(IMediator mediator)
         {
@@ -18,10 +20,17 @@ namespace API.Controllers
 
         }
 
+        //{{url}}/api/activities/3eccaab3-3252-45c8-beda-21a25a5edad6
         [HttpGet]
         public async Task<ActionResult<List<Activity>>> List()
         {
             return await _mediator.Send(new List.Query());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Activity>> Details(Guid id)
+        {
+            return await _mediator.Send(new Details.Query{Id = id});
         }
     }
 }
