@@ -2,6 +2,8 @@ import './App.css';
 
 import axios from 'axios';
 import React from 'react';
+import { Header, Icon } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 
 import logo from './logo.svg';
 
@@ -15,23 +17,30 @@ const App: React.FC = () => {
         { id: 1, name: 'Value 101' }
     ]);
 
+    const getData = () => {
+        axios.get('http://localhost:5000/api/values').then(response => {
+            updateValues(response.data);
+        });
+    };
+
     React.useEffect(() => {
-      axios.get('http://localhost:5000/api/values')
-      .then((response) => {
-        updateValues(response.data)
-      })
-    });
+        getData();
+    }, []);
 
     return (
-        <div className='App'>
-            <header className='App-header'>
+        <div>
+            <Header as='h2'>
+                <Icon name='plug' />
+                <Header.Content>Reactivities</Header.Content>
+            </Header>
                 <img src={logo} className='App-logo' alt='logo' />
-                <ul>
+                <List>
                     {values.map((value: any) => {
-                        return <li key={value.id}>{value.name}</li>;
+                        return (
+                            <List.Item key={value.id}>{value.name}</List.Item>
+                        );
                     })}
-                </ul>
-            </header>
+                </List>
         </div>
     );
 };
