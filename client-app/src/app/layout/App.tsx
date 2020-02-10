@@ -1,23 +1,40 @@
 import './App.css';
 
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 import { Header, Icon, List } from 'semantic-ui-react';
 
 interface iData {
-    id: number;
-    name: string;
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    date: string;
+    city: string;
+    venue: string;
 }
 
+
+
 const App: React.FC = () => {
-    const [values, updateValues] = React.useState([
-        { id: 1, name: 'Value 101' }
+    const initialState: iData = {
+        id: '',
+        title: '',
+        description: '',
+        category: '',
+        date: '',
+        city: '',
+        venue: ''
+    }
+
+    const [activities, updateActivities] = React.useState([
+        initialState
     ]);
 
-    const getData = () => {
-        axios.get('http://localhost:5000/api/values').then(response => {
-            updateValues(response.data);
-        });
+    const getData = async() => {
+        const response: AxiosResponse<iData[]> = await axios.get('http://localhost:5000/api/activities')
+        console.log(response.data)
+        updateActivities([...response.data])
     };
 
     React.useEffect(() => {
@@ -31,8 +48,8 @@ const App: React.FC = () => {
                 <Header.Content>Reactivities</Header.Content>
             </Header>
             <List>
-                {values.map((value: any) => {
-                    return <List.Item key={value.id}>{value.name}</List.Item>;
+                {activities.map((activities: iData) => {
+                return <List.Item key={activities.id}>{activities.title}, {activities.description}: {activities.venue}</List.Item>;
                 })}
             </List>
         </div>
