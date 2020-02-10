@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { iProps } from '../../../app/interfaces/iActivity';
 import { ActivityList } from './ActivityList';
 import { ActivityDetails } from '../details/ActivityDetails';
+import { ActivityForm } from '../form/ActivityForm';
 
 
 const ActivityDashboard:React.FC<iProps> = ({activities}) => {
@@ -14,6 +15,7 @@ const ActivityDashboard:React.FC<iProps> = ({activities}) => {
             </Grid.Column>
             <Grid.Column width={6}>
                 <ActivityDetails/>
+                <ActivityForm/>
             </Grid.Column>
         </Grid>
 
