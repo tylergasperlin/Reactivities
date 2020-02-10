@@ -9,3 +9,8 @@ export interface iActivity {
     city: string;
     venue: string;
 }
+
+export interface iProps {
+    activities: iActivity[]
+
+}

@@ -1,10 +1,7 @@
 import React from 'react';
-import { Item, Image, Button, Label, Segment } from 'semantic-ui-react';
-import { iActivity } from '../../../app/interfaces/iActivity';
+import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
-interface iProps {
-    activities: iActivity[];
-}
+import { iActivity, iProps } from '../../../app/interfaces/iActivity';
 
 export const ActivityList: React.FC<iProps> = ({ activities }) => {
     return (
