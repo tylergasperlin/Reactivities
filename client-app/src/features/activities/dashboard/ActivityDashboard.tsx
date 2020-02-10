@@ -9,7 +9,9 @@ import { ActivityForm } from '../form/ActivityForm';
 const ActivityDashboard: React.FC<iPropsDashboard> = ({
     activities,
     selectActivity,
-    selectedActivity
+    selectedActivity,
+    editMode,
+    setEditMode
 }) => {
     return (
         <Grid>
@@ -20,10 +22,10 @@ const ActivityDashboard: React.FC<iPropsDashboard> = ({
                 />
             </Grid.Column>
             <Grid.Column width={6}>
-                {selectedActivity && (
-                    <ActivityDetails activity={selectedActivity} />
+                {selectedActivity && !editMode && (
+                    <ActivityDetails activity={selectedActivity} setEditMode={setEditMode}/>
                 )}
-                <ActivityForm />
+                {editMode && <ActivityForm/>}{' '}
             </Grid.Column>
         </Grid>
     );

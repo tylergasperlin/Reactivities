@@ -14,15 +14,17 @@ export interface iPropsDashboard {
     activities: iActivity[];
     selectActivity: (id: string) => void;
     selectedActivity: iActivity| null;
+    editMode: boolean;
+    setEditMode: (editmode: boolean)=>void;
 
 }
 
 export interface iPropsDetails {
     activity: iActivity| null;
-
+    setEditMode: (editmode: boolean) => void;
 }
 
-export interface iPropsActivity {
+export interface iPropsActivityForm {
     activities: iActivity[];
     selectActivity: (id: string) => void;
 

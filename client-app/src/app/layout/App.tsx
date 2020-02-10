@@ -26,6 +26,7 @@ const App: React.FC = () => {
         selectedActivity,
         setSelectedActivity
     ] = React.useState<iActivity | null>(null);
+    const [editMode, setEditMode] = React.useState(false);
 
     const handleSelectActivity = (id: string) => {
         setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -50,6 +51,8 @@ const App: React.FC = () => {
                     activities={activities}
                     selectActivity={handleSelectActivity}
                     selectedActivity={selectedActivity}
+                    editMode={editMode}
+                    setEditMode={setEditMode}
                 />
             </Container>
         </React.Fragment>

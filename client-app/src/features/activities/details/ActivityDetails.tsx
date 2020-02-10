@@ -6,7 +6,7 @@ interface iProps {
     activity: iActivity;
 }
 
-export const ActivityDetails: React.FC<iPropsDetails> = ({activity}) => {
+export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode}) => {
     return (
         <Card>
             <Image
@@ -25,7 +25,7 @@ export const ActivityDetails: React.FC<iPropsDetails> = ({activity}) => {
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths={2}>
-                    <Button basic color='blue' content='Edit'/>
+                    <Button basic color='blue' content='Edit' onClick={()=>setEditMode(true)}/>
                     <Button basic color='grey' content='Cancel'/>
                 </Button.Group>
             </Card.Content>
