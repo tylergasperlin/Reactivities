@@ -10,7 +10,21 @@ export interface iActivity {
     venue: string;
 }
 
-export interface iProps {
-    activities: iActivity[]
+export interface iPropsDashboard {
+    activities: iActivity[];
+    selectActivity: (id: string) => void;
+    selectedActivity: iActivity| null;
+
+}
+
+export interface iPropsDetails {
+    activity: iActivity| null;
+
+}
+
+export interface iPropsActivity {
+    activities: iActivity[];
+    selectActivity: (id: string) => void;
+
 
 }

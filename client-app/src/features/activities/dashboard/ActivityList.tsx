@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
-import { iActivity, iProps } from '../../../app/interfaces/iActivity';
+import { iActivity, iPropsActivity } from '../../../app/interfaces/iActivity';
 
-export const ActivityList: React.FC<iProps> = ({ activities }) => {
+export const ActivityList: React.FC<iPropsActivity> = ({activities, selectActivity}) => {
     return (
         <Segment clearing>
             <Item.Group divided>
@@ -22,6 +22,7 @@ export const ActivityList: React.FC<iProps> = ({ activities }) => {
                                         floated='right'
                                         content='View'
                                         color='blue'
+                                        onClick={()=>selectActivity(activity.id)}
                                     />
                                     <Label basic content='Category' />
                                 </Item.Extra>
@@ -33,11 +34,3 @@ export const ActivityList: React.FC<iProps> = ({ activities }) => {
         </Segment>
     );
 };
-
-{
-    /* <List>
-                {activities.map((activity: iActivity) => (
-                <List.Item key={activity.id}>{activity.title}, {activity.description}: {activity.venue}</List.Item>
-                ))}
-            </List> */
-}

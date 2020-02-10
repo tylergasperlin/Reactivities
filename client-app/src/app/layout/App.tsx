@@ -22,6 +22,14 @@ const App: React.FC = () => {
     const [activities, updateActivities] = React.useState<iActivity[]>([
         initialState
     ]);
+    const [
+        selectedActivity,
+        setSelectedActivity
+    ] = React.useState<iActivity | null>(null);
+
+    const handleSelectActivity = (id: string) => {
+        setSelectedActivity(activities.filter(a => a.id === id)[0]);
+    };
 
     const getData = async () => {
         const response: AxiosResponse<iActivity[]> = await axios.get(
@@ -38,7 +46,11 @@ const App: React.FC = () => {
         <React.Fragment>
             <NavBar />
             <Container style={{ marginTop: '7em' }}>
-                <ActivityDashboard  activities={activities}/>
+                <ActivityDashboard
+                    activities={activities}
+                    selectActivity={handleSelectActivity}
+                    selectedActivity={selectedActivity}
+                />
             </Container>
         </React.Fragment>
     );
