@@ -2,8 +2,10 @@ import './App.css';
 
 import axios, { AxiosResponse } from 'axios';
 import React from 'react';
-import { Header, Icon, List } from 'semantic-ui-react';
-import {iActivity} from '../interfaces/iActivity'
+import { List } from 'semantic-ui-react';
+
+import NavBar from '../../features/Nav/NavBar';
+import { iActivity } from '../interfaces/iActivity';
 
 
 
@@ -33,10 +35,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <Header as='h2'>
-                <Icon name='plug' />
-                <Header.Content>Reactivities</Header.Content>
-            </Header>
+            <NavBar/>
             <List>
                 {activities.map((activity: iActivity) => {
                 return <List.Item key={activity.id}>{activity.title}, {activity.description}: {activity.venue}</List.Item>;
