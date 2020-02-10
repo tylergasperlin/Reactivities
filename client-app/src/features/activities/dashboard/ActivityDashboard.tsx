@@ -1,6 +1,7 @@
-import React from 'react'
-import { Grid, List } from 'semantic-ui-react'
-import { iActivity, iProps } from '../../../app/interfaces/iActivity';
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
+
+import { iProps } from '../../../app/interfaces/iActivity';
 import { ActivityList } from './ActivityList';
 
 

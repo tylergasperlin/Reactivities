@@ -2,11 +2,11 @@ import './App.css';
 
 import axios, { AxiosResponse } from 'axios';
 import React from 'react';
-import { List, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
+import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import NavBar from '../../features/nav/NavBar';
 import { iActivity } from '../interfaces/iActivity';
-import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 
 const App: React.FC = () => {
     const initialState: iActivity = {
