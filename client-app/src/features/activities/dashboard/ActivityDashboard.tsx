@@ -23,9 +23,9 @@ const ActivityDashboard: React.FC<iPropsDashboard> = ({
             </Grid.Column>
             <Grid.Column width={6}>
                 {selectedActivity && !editMode && (
-                    <ActivityDetails activity={selectedActivity} setEditMode={setEditMode}/>
+                    <ActivityDetails activity={selectedActivity} selectActivity={selectActivity} setEditMode={setEditMode}/>
                 )}
-                {editMode && <ActivityForm/>}{' '}
+                {editMode && <ActivityForm setEditMode={setEditMode}/>}{' '}
             </Grid.Column>
         </Grid>
     );

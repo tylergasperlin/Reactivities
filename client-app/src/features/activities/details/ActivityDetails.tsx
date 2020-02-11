@@ -2,11 +2,7 @@ import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
 import { iActivity, iPropsDetails } from '../../../app/interfaces/iActivity';
 
-interface iProps {
-    activity: iActivity;
-}
-
-export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode}) => {
+export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode, selectActivity}) => {
     return (
         <Card>
             <Image
@@ -26,7 +22,7 @@ export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode}
             <Card.Content extra>
                 <Button.Group widths={2}>
                     <Button basic color='blue' content='Edit' onClick={()=>setEditMode(true)}/>
-                    <Button basic color='grey' content='Cancel'/>
+                    <Button basic color='grey' content='Cancel' onClick={()=>selectActivity('')}/>
                 </Button.Group>
             </Card.Content>
         </Card>

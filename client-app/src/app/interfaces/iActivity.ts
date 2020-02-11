@@ -21,6 +21,7 @@ export interface iPropsDashboard {
 
 export interface iPropsDetails {
     activity: iActivity| null;
+    selectActivity: (id: string) => void;
     setEditMode: (editmode: boolean) => void;
 }
 

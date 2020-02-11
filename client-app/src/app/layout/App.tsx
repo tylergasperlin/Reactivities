@@ -26,6 +26,7 @@ const App: React.FC = () => {
         selectedActivity,
         setSelectedActivity
     ] = React.useState<iActivity | null>(null);
+    
     const [editMode, setEditMode] = React.useState(false);
 
     const handleSelectActivity = (id: string) => {
@@ -39,13 +40,18 @@ const App: React.FC = () => {
         updateActivities([...response.data]);
     };
 
+    const handleOpenCreateForm = () => {
+        setSelectedActivity(null);
+        setEditMode(true)
+    }
+
     React.useEffect(() => {
         getData();
     }, []);
 
     return (
         <React.Fragment>
-            <NavBar />
+            <NavBar openCreateForm={handleOpenCreateForm} />
             <Container style={{ marginTop: '7em' }}>
                 <ActivityDashboard
                     activities={activities}
