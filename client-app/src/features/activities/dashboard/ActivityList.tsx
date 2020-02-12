@@ -9,7 +9,7 @@ export const ActivityList: React.FC<iPropsActivityForm> = ({activities, selectAc
             <Item.Group divided>
                 {activities.map(
                     (activity: iActivity): JSX.Element => (
-                        <Item>
+                        <Item key={activity.id}>
                             <Item.Content>
                                 <Item.Header as='a'>{activity.title}</Item.Header>
                                 <Item.Meta>{activity.date}</Item.Meta>

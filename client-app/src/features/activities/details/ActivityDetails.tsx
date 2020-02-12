@@ -1,8 +1,13 @@
 import React from 'react';
-import { Card, Image, Icon, Button } from 'semantic-ui-react';
-import { iActivity, iPropsDetails } from '../../../app/interfaces/iActivity';
+import { Button, Card, Image } from 'semantic-ui-react';
 
-export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode, selectActivity}) => {
+import { iPropsDetails } from '../../../app/interfaces/iActivity';
+
+export const ActivityDetails: React.FC<iPropsDetails> = ({
+    activity,
+    setEditMode,
+    selectActivity
+}) => {
     return (
         <Card>
             <Image
@@ -13,16 +18,24 @@ export const ActivityDetails: React.FC<iPropsDetails> = ({activity, setEditMode,
             <Card.Content>
                 <Card.Header>{activity?.title}</Card.Header>
                 <Card.Meta>
-                    <span >{activity?.date}</span>
+                    <span>{activity?.date}</span>
                 </Card.Meta>
-                <Card.Description>
-                    {activity?.description}
-                </Card.Description>
+                <Card.Description>{activity?.description}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths={2}>
-                    <Button basic color='blue' content='Edit' onClick={()=>setEditMode(true)}/>
-                    <Button basic color='grey' content='Cancel' onClick={()=>selectActivity('')}/>
+                    <Button
+                        basic
+                        color='blue'
+                        content='Edit'
+                        onClick={() => setEditMode(true)}
+                    />
+                    <Button
+                        basic
+                        color='grey'
+                        content='Cancel'
+                        onClick={() => selectActivity('')}
+                    />
                 </Button.Group>
             </Card.Content>
         </Card>

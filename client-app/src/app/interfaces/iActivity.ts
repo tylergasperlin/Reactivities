@@ -13,7 +13,7 @@ export interface iActivity {
 export interface iPropsDashboard {
     activities: iActivity[];
     selectActivity: (id: string) => void;
-    selectedActivity: iActivity| null;
+    selectedActivity: iActivity | null;
     editMode: boolean;
     setEditMode: (editmode: boolean)=>void;
 
