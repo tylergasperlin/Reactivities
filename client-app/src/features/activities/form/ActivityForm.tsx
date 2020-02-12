@@ -1,18 +1,21 @@
-import React from 'react'
-import { Segment, Form, Button } from 'semantic-ui-react'
-import { iActivity } from '../../../app/interfaces/iActivity'
+import React from 'react';
+import { Segment, Form, Button } from 'semantic-ui-react';
+import { iActivity } from '../../../app/interfaces/iActivity';
 
-interface iActivityForm{
+interface iActivityForm {
     setEditMode: (editMode: boolean) => void;
     initialFormState: iActivity | null;
 }
 
-export const ActivityForm: React.FC<iActivityForm> = ({setEditMode, initialFormState}) => {
-    console.log(initialFormState)
+export const ActivityForm: React.FC<iActivityForm> = ({
+    setEditMode,
+    initialFormState
+}) => {
+    console.log(initialFormState);
 
-    const initializeForm = () =>{
+    const initializeForm = () => {
         if (initialFormState !== null) {
-            return initialFormState
+            return initialFormState;
         } else {
             return {
                 id: '',
@@ -22,24 +25,67 @@ export const ActivityForm: React.FC<iActivityForm> = ({setEditMode, initialFormS
                 date: '',
                 city: '',
                 venue: ''
-            }
+            };
         }
+    };
+
+    const [activity, setActivity] = React.useState<iActivity>(initializeForm);
+
+    const handleSubmit = () =>{
+        console.log(activity)
     }
-    console.log(initializeForm())
-    const [activity, setActivity] = React.useState<iActivity>(initializeForm)
-    console.log(activity)
+    
+    const handleInputChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.currentTarget;
+        //we can use [name] to select the input field because name is set to ='title'
+        setActivity({ ...activity, [name]: value });
+    };
+
     return (
         <Segment clearing>
             <Form>
-                <Form.Input placeholder={'Title'} value={activity.title}/>
-                <Form.TextArea rows={2} placeholder={'Description'} value={activity.description}/>
-                <Form.Input placeholder={'Category'} value={activity.category}/>
-                <Form.Input placeholder={'Date'} type='date' value={activity.date}/>
-                <Form.Input placeholder={'City'} value={activity.city}/>
-                <Form.Input placeholder={'Venue'} value={activity.venue}/>
-                <Button floated='right' positive type='submit' content='Submit' />
-                <Button floated='right' type='button' content='Cancel' onClick={()=>setEditMode(false)} />
+                <Form.Input
+                    onChange={handleInputChange}
+                    name='title'
+                    placeholder={'Title'}
+                    value={activity.title}
+                />
+                <Form.TextArea
+                    rows={2}
+                    onChange={handleInputChange}
+                    name='description'
+                    placeholder={'Description'}
+                    value={activity.description}
+                />
+                <Form.Input
+                    placeholder={'Category'}
+                    onChange={handleInputChange}
+                    name='category'
+                    value={activity.category}
+                />
+                <Form.Input
+                    placeholder={'Date'}
+                    onChange={handleInputChange}
+                    name='date'
+                    type='date'
+                    value={activity.date}
+                />
+                <Form.Input onChange={handleInputChange} name='city' placeholder={'City'} value={activity.city} />
+                <Form.Input onChange={handleInputChange} name='venue' placeholder={'Venue'} value={activity.venue} />
+                <Button
+                    floated='right'
+                    positive
+                    type='submit'
+                    content='Submit'
+                    onClick={()=>handleSubmit()}
+                />
+                <Button
+                    floated='right'
+                    type='button'
+                    content='Cancel'
+                    onClick={() => setEditMode(false)}
+                />
             </Form>
         </Segment>
-    )
-}
+    );
+};
