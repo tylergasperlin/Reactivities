@@ -19,7 +19,7 @@ const App: React.FC = () => {
         venue: ''
     };
 
-    const [activities, updateActivities] = React.useState<iActivity[]>([
+    const [activities, setActivities] = React.useState<iActivity[]>([
         initialState
     ]);
     const [
@@ -37,7 +37,7 @@ const App: React.FC = () => {
         const response: AxiosResponse<iActivity[]> = await axios.get(
             'http://localhost:5000/api/activities'
         );
-        updateActivities([...response.data]);
+        setActivities([...response.data]);
     };
 
     const handleOpenCreateForm = () => {
@@ -45,9 +45,18 @@ const App: React.FC = () => {
         setEditMode(true)
     }
 
+    const handleCreateActivity = (activity: iActivity) =>{
+        setActivities([...activities, activity])
+    }
+
+    const handleEditAcivity = (activity: iActivity) =>{
+        setActivities([...activities.filter(a=>a.id !== activity.id), activity])
+    }
+
     React.useEffect(() => {
         getData();
     }, []);
+
 
     return (
         <React.Fragment>
@@ -59,6 +68,9 @@ const App: React.FC = () => {
                     selectedActivity={selectedActivity}
                     editMode={editMode}
                     setEditMode={setEditMode}
+                    setSelectedActivity={setSelectedActivity}
+                    createActivity={handleCreateActivity}
+                    editActivity={handleEditAcivity}
                 />
             </Container>
         </React.Fragment>
