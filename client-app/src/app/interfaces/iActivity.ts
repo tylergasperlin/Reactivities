@@ -20,6 +20,7 @@ export interface iPropsDashboard {
     createActivity: (activity: iActivity) => void;
     editActivity: (activity: iActivity) => void;
 
+
 }
 
 export interface iPropsDetails {
@@ -28,9 +29,8 @@ export interface iPropsDetails {
     setEditMode: (editmode: boolean) => void;
 }
 
-export interface iPropsActivityForm {
+export interface iPropsActivityList {
     activities: iActivity[];
     selectActivity: (id: string) => void;
-
 
 }

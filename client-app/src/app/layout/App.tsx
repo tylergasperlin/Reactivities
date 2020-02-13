@@ -47,10 +47,14 @@ const App: React.FC = () => {
 
     const handleCreateActivity = (activity: iActivity) =>{
         setActivities([...activities, activity])
+        setSelectedActivity(activity)
+        setEditMode(false)
     }
 
     const handleEditAcivity = (activity: iActivity) =>{
         setActivities([...activities.filter(a=>a.id !== activity.id), activity])
+        setSelectedActivity(activity)
+        setEditMode(false)
     }
 
     React.useEffect(() => {

@@ -11,7 +11,9 @@ const ActivityDashboard: React.FC<iPropsDashboard> = ({
     selectActivity,
     selectedActivity,
     editMode,
-    setEditMode
+    setEditMode,
+    editActivity,
+    createActivity
 }) => {
     return (
         <Grid>
@@ -29,7 +31,14 @@ const ActivityDashboard: React.FC<iPropsDashboard> = ({
                         setEditMode={setEditMode}
                     />
                 )}
-                {editMode && <ActivityForm setEditMode={setEditMode} initialFormState={selectedActivity} />}{' '}
+                {editMode && (
+                    <ActivityForm
+                        setEditMode={setEditMode}
+                        initialFormState={selectedActivity}
+                        editActivity={editActivity}
+                        createActivity={createActivity}
+                    />
+                )}{' '}
             </Grid.Column>
         </Grid>
     );

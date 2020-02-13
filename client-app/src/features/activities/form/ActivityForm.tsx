@@ -1,15 +1,20 @@
 import React from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 import { iActivity } from '../../../app/interfaces/iActivity';
+import {v4 as uuid} from 'uuid'
 
 interface iActivityForm {
     setEditMode: (editMode: boolean) => void;
     initialFormState: iActivity | null;
+    createActivity: (activity: iActivity) => void;
+    editActivity: (activity: iActivity) => void;
 }
 
 export const ActivityForm: React.FC<iActivityForm> = ({
     setEditMode,
-    initialFormState
+    initialFormState,
+    createActivity,
+    editActivity
 }) => {
     console.log(initialFormState);
 
@@ -32,7 +37,15 @@ export const ActivityForm: React.FC<iActivityForm> = ({
     const [activity, setActivity] = React.useState<iActivity>(initializeForm);
 
     const handleSubmit = () =>{
-        console.log(activity)
+        if(activity.id.length === 0 ){
+            let newActivity = {
+                ...activity, id: uuid()
+            }
+            createActivity(newActivity);
+
+        } else {
+            editActivity(activity)
+        }
     }
     
     const handleInputChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
-import { iActivity, iPropsActivityForm } from '../../../app/interfaces/iActivity';
+import { iActivity, iPropsActivityList } from '../../../app/interfaces/iActivity';
 
-export const ActivityList: React.FC<iPropsActivityForm> = ({activities, selectActivity}) => {
+export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectActivity}) => {
     return (
         <Segment clearing>
             <Item.Group divided>
