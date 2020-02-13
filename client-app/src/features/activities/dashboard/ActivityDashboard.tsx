@@ -33,6 +33,7 @@ const ActivityDashboard: React.FC<iPropsDashboard> = ({
                 )}
                 {editMode && (
                     <ActivityForm
+                        key={selectedActivity && selectedActivity.id || 0}
                         setEditMode={setEditMode}
                         initialFormState={selectedActivity}
                         editActivity={editActivity}

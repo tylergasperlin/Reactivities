@@ -31,12 +31,18 @@ const App: React.FC = () => {
 
     const handleSelectActivity = (id: string) => {
         setSelectedActivity(activities.filter(a => a.id === id)[0]);
+        setEditMode(false);
     };
 
     const getData = async () => {
         const response: AxiosResponse<iActivity[]> = await axios.get(
             'http://localhost:5000/api/activities'
-        );
+        )
+        let activities: iActivity[] = [];
+        response.data.forEach(activity =>{
+            activity.date = activity.date.split('.')[0];
+            activities.push(activity)
+        })
         setActivities([...response.data]);
     };
 
@@ -50,6 +56,7 @@ const App: React.FC = () => {
         setSelectedActivity(activity)
         setEditMode(false)
     }
+
 
     const handleEditAcivity = (activity: iActivity) =>{
         setActivities([...activities.filter(a=>a.id !== activity.id), activity])
