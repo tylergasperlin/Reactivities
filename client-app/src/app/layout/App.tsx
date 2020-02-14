@@ -64,6 +64,10 @@ const App: React.FC = () => {
         setEditMode(false)
     }
 
+    const handleDeleteActivity = (id: string) => {
+        setActivities([...activities.filter(a => a.id !== id)])
+    }
+
     React.useEffect(() => {
         getData();
     }, []);
@@ -82,6 +86,7 @@ const App: React.FC = () => {
                     setSelectedActivity={setSelectedActivity}
                     createActivity={handleCreateActivity}
                     editActivity={handleEditAcivity}
+                    deleteActivity={handleDeleteActivity}
                 />
             </Container>
         </React.Fragment>

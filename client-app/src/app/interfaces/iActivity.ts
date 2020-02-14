@@ -19,7 +19,7 @@ export interface iPropsDashboard {
     setSelectedActivity: (activity: iActivity) => void;
     createActivity: (activity: iActivity) => void;
     editActivity: (activity: iActivity) => void;
-
+    deleteActivity:(activitiy: string) => void;
 
 }
 
@@ -32,5 +32,6 @@ export interface iPropsDetails {
 export interface iPropsActivityList {
     activities: iActivity[];
     selectActivity: (id: string) => void;
+    deleteActivity:(activitiy: string) => void;
 
 }
