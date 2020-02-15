@@ -1,20 +1,15 @@
 import React from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
-import { iActivity } from '../../../app/interfaces/iActivity';
+import { iActivity, iActivityForm } from '../../../app/interfaces/iActivity';
 import {v4 as uuid} from 'uuid'
 
-interface iActivityForm {
-    setEditMode: (editMode: boolean) => void;
-    initialFormState: iActivity | null;
-    createActivity: (activity: iActivity) => void;
-    editActivity: (activity: iActivity) => void;
-}
 
 export const ActivityForm: React.FC<iActivityForm> = ({
     setEditMode,
     initialFormState,
     createActivity,
-    editActivity
+    editActivity,
+    submitting
 }) => {
 
     const initializeForm = () => {
@@ -85,6 +80,7 @@ export const ActivityForm: React.FC<iActivityForm> = ({
                 <Form.Input onChange={handleInputChange} name='city' placeholder={'City'} value={activity.city} />
                 <Form.Input onChange={handleInputChange} name='venue' placeholder={'Venue'} value={activity.venue} />
                 <Button
+                    loading={submitting}
                     floated='right'
                     positive
                     type='submit'

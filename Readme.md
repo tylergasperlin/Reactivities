@@ -1,10 +1,16 @@
 //run api project
 dotnet watch run
 
-//script to run initial migration
+//script to run initial migration from the main foler
 dotnet ef migrations add InitialCreate -p Persistence/ -s API/
 
  dotnet ef migrations add Seedvalues -p Persistence/ -s API/
+
+Steps to reseed db
+//dotnet ef database drop -p Persistence/ -s API/
+//dotnet ef migrations add InitialCreate -p Persistence/ -s API/
+//dotnet watch run from api folder
+
 
  MediatR
     Takes object in > Handler > object out

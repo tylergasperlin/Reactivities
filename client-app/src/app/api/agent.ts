@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
+
 import { iActivity } from '../interfaces/iActivity';
-import { resolve } from 'dns';
+
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
 const responseBody = (response: AxiosResponse) => response.data;

@@ -1,3 +1,4 @@
+import { SyntheticEvent } from 'react';
 
 //use interface when you want typechecking only //othersise class is appropriate
 export interface iActivity {
@@ -19,7 +20,9 @@ export interface iPropsDashboard {
     setSelectedActivity: (activity: iActivity) => void;
     createActivity: (activity: iActivity) => void;
     editActivity: (activity: iActivity) => void;
-    deleteActivity:(activitiy: string) => void;
+    deleteActivity:(event: SyntheticEvent<HTMLButtonElement> ,activitiy: string) => void;
+    submitting: boolean;
+    target: string
 
 }
 
@@ -32,6 +35,18 @@ export interface iPropsDetails {
 export interface iPropsActivityList {
     activities: iActivity[];
     selectActivity: (id: string) => void;
-    deleteActivity:(activitiy: string) => void;
+    deleteActivity:(event: SyntheticEvent<HTMLButtonElement> ,activitiy: string) => void;
+    submitting: boolean
+    target: string
+
+
+}
+
+export interface iActivityForm {
+    setEditMode: (editMode: boolean) => void;
+    initialFormState: iActivity | null;
+    createActivity: (activity: iActivity) => void;
+    editActivity: (activity: iActivity) => void;
+    submitting: boolean
 
 }

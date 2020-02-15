@@ -3,7 +3,7 @@ import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
 import { iActivity, iPropsActivityList } from '../../../app/interfaces/iActivity';
 
-export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectActivity, deleteActivity}) => {
+export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectActivity, deleteActivity, target, submitting}) => {
     return (
         <Segment clearing>
             <Item.Group divided>
@@ -25,10 +25,12 @@ export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectAc
                                         onClick={()=>selectActivity(activity.id)}
                                     />
                                     <Button
+                                        name={activity.id}
+                                        loading={target === activity.id && submitting}
                                         floated='right'
                                         content='Delete'
                                         color='red'
-                                        onClick={()=>deleteActivity(activity.id)}
+                                        onClick={(e)=>deleteActivity(e, activity.id)}
                                     />
                                     <Label basic content='Category' />
                                 </Item.Extra>

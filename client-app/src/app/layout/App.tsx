@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Container } from 'semantic-ui-react';
 
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
@@ -30,6 +30,7 @@ const App: React.FC = () => {
     const [editMode, setEditMode] = React.useState(false);
     const [loading, setLoading] = React.useState(true)
     const [submitting, setSubmitting] = React.useState(false)
+    const [target, setTarget] = React.useState('')
 
     const handleSelectActivity = (id: string) => {
         setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -75,8 +76,9 @@ const App: React.FC = () => {
 
     };
 
-    const handleDeleteActivity = async (id: string) => {
+    const handleDeleteActivity = async (event: SyntheticEvent<HTMLButtonElement> ,id: string) => {
         setSubmitting(true)
+        setTarget(event.currentTarget.name)
         await agent.Activities.delete(id)
         setActivities([...activities.filter(a => a.id !== id)]);
         setSubmitting(false)
@@ -104,6 +106,7 @@ const App: React.FC = () => {
                     editActivity={handleEditAcivity}
                     deleteActivity={handleDeleteActivity}
                     submitting={submitting}
+                    target={target}
                 />
             </Container>
         </React.Fragment>
