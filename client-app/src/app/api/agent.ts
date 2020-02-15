@@ -6,7 +6,7 @@ import { iActivity } from '../interfaces/iActivity';
 
  const requests = {
     get: (url: string)    => axios.get(url).then(responseBody),
-    post: (url: string, body: {}) => axios.get(url, body).then(responseBody),
+    post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody)
  }
@@ -14,7 +14,7 @@ import { iActivity } from '../interfaces/iActivity';
  const Activities = {
      list: (): Promise<iActivity[]> => requests.get('/activities'),
      details: (id: string) => requests.get(`/activities/${id}`),
-     create: (activity: iActivity) => requests.post(`activities`, activity),
+     create: (activity: iActivity) => requests.post(`/activities`, activity),
      update: (activity: iActivity) => requests.put(`/activities/${activity.id}`, activity),
      delete: (id: string) => requests.delete(`/activities/${id}`)
  }

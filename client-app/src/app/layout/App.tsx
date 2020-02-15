@@ -48,13 +48,15 @@ const App: React.FC = () => {
         setEditMode(true);
     };
 
-    const handleCreateActivity = (activity: iActivity) => {
+    const handleCreateActivity = async (activity: iActivity) => {
+        await agent.Activities.create(activity)
         setActivities([...activities, activity]);
         setSelectedActivity(activity);
         setEditMode(false);
     };
 
-    const handleEditAcivity = (activity: iActivity) => {
+    const handleEditAcivity = async (activity: iActivity) => {
+        await agent.Activities.update(activity)
         setActivities([
             ...activities.filter(a => a.id !== activity.id),
             activity
@@ -63,7 +65,8 @@ const App: React.FC = () => {
         setEditMode(false);
     };
 
-    const handleDeleteActivity = (id: string) => {
+    const handleDeleteActivity = async (id: string) => {
+        await agent.Activities.delete(id)
         setActivities([...activities.filter(a => a.id !== id)]);
     };
 

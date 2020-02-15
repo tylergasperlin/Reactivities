@@ -16,7 +16,6 @@ export const ActivityForm: React.FC<iActivityForm> = ({
     createActivity,
     editActivity
 }) => {
-    console.log(initialFormState);
 
     const initializeForm = () => {
         if (initialFormState !== null) {
