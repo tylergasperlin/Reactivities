@@ -1,10 +1,11 @@
 import React from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
-import { iActivity, iActivityForm } from '../../app/interfaces/iActivity';
+import {IActivityForm} from './IActivityForm'
+import { IActivity } from '../../app/interfaces/IActivity';
 import {v4 as uuid} from 'uuid'
 
 
-export const ActivityForm: React.FC<iActivityForm> = ({
+export const ActivityForm: React.FC<IActivityForm> = ({
     setEditMode,
     initialFormState,
     createActivity,
@@ -28,7 +29,7 @@ export const ActivityForm: React.FC<iActivityForm> = ({
         }
     };
 
-    const [activity, setActivity] = React.useState<iActivity>(initializeForm);
+    const [activity, setActivity] = React.useState<IActivity>(initializeForm);
 
     const handleSubmit = () =>{
         if(activity.id.length === 0 ){

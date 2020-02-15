@@ -4,12 +4,12 @@ import { Container } from 'semantic-ui-react';
 
 import ActivityDashboard from '../../components/dashboard/ActivityDashboard';
 import NavBar from '../../components/nav/NavBar';
-import { iActivity } from '../../app/interfaces/iActivity';
+import { IActivity } from '../../app/interfaces/IActivity';
 import agent from '../../app/api/agent';
 import { LoadingComponent } from '../../components/loading/LoadingComponent';
 
 const App: React.FC = () => {
-    const initialState: iActivity = {
+    const initialState: IActivity = {
         id: '',
         title: '',
         description: '',
@@ -19,13 +19,13 @@ const App: React.FC = () => {
         venue: ''
     };
 
-    const [activities, setActivities] = React.useState<iActivity[]>([
+    const [activities, setActivities] = React.useState<IActivity[]>([
         initialState
     ]);
     const [
         selectedActivity,
         setSelectedActivity
-    ] = React.useState<iActivity | null>(null);
+    ] = React.useState<IActivity | null>(null);
 
     const [editMode, setEditMode] = React.useState(false);
     const [loading, setLoading] = React.useState(true)
@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
     const getData = async () => {
         const response = await agent.Activities.list();
-        let activities: iActivity[] = [];
+        let activities: IActivity[] = [];
         response.forEach(activity => {
             activity.date = activity.date.split('.')[0];
             activities.push(activity);
@@ -54,7 +54,7 @@ const App: React.FC = () => {
         setEditMode(true);
     };
 
-    const handleCreateActivity = async (activity: iActivity) => {
+    const handleCreateActivity = async (activity: IActivity) => {
         setSubmitting(true)
         await agent.Activities.create(activity)
         setActivities([...activities, activity]);
@@ -63,7 +63,7 @@ const App: React.FC = () => {
         setSubmitting(false)
     };
 
-    const handleEditAcivity = async (activity: iActivity) => {
+    const handleEditAcivity = async (activity: IActivity) => {
         setSubmitting(true)
         await agent.Activities.update(activity)
         setActivities([

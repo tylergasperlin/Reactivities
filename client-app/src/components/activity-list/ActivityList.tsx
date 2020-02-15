@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
-import { iActivity, iPropsActivityList } from '../../app/interfaces/iActivity';
+import {IActivity} from '../../app/interfaces/IActivity'
+import {IActivityList } from './IActivityList';
 
-export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectActivity, deleteActivity, target, submitting}) => {
+export const ActivityList: React.FC<IActivityList> = ({activities, selectActivity, deleteActivity, target, submitting}) => {
     return (
         <Segment clearing>
             <Item.Group divided>
                 {activities.map(
-                    (activity: iActivity): JSX.Element => (
+                    (activity: IActivity): JSX.Element => (
                         <Item key={activity.id}>
                             <Item.Content>
                                 <Item.Header as='a'>{activity.title}</Item.Header>

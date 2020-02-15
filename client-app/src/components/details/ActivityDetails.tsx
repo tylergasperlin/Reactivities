@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 
-import { iPropsDetails } from '../../app/interfaces/iActivity';
+import { IPropsDetails } from './IActivityDetails';
 
-export const ActivityDetails: React.FC<iPropsDetails> = ({
+export const ActivityDetails: React.FC<IPropsDetails> = ({
     activity,
     setEditMode,
     selectActivity
