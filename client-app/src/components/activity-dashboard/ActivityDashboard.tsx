@@ -4,8 +4,8 @@ import {observer} from 'mobx-react-lite'
 
 import { IActivityDashboard } from './IActivityDashboard';
 import  ActivityList from '../activity-list/ActivityList';
-import { ActivityDetails } from '../details/ActivityDetails';
-import { ActivityForm } from '../form/ActivityForm';
+import { ActivityDetails } from '../activity-details/ActivityDetails';
+import { ActivityForm } from '../activity-form/ActivityForm';
 
 const ActivityDashboard: React.FC<IActivityDashboard> = ({
     activities,

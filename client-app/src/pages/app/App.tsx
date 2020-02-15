@@ -2,7 +2,7 @@ import './App.css';
 import React, { SyntheticEvent } from 'react';
 import { Container } from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite'
-import ActivityDashboard from '../../components/dashboard/ActivityDashboard';
+import ActivityDashboard from '../../components/activity-dashboard/ActivityDashboard';
 import NavBar from '../../components/nav/NavBar';
 import { IActivity } from '../../app/interfaces/IActivity';
 import agent from '../../app/api/agent';
