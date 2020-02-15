@@ -12,7 +12,7 @@ import { iActivity } from '../interfaces/iActivity';
  }
 
  const Activities = {
-     list: () => requests.get('/activities'),
+     list: (): Promise<iActivity[]> => requests.get('/activities'),
      details: (id: string) => requests.get(`/activities/${id}`),
      create: (activity: iActivity) => requests.post(`activities`, activity),
      update: (activity: iActivity) => requests.put(`/activities/${activity.id}`, activity),

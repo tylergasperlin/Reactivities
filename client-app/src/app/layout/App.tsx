@@ -1,12 +1,11 @@
 import './App.css';
-
-import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import NavBar from '../../features/nav/NavBar';
 import { iActivity } from '../interfaces/iActivity';
+import agent from '../api/agent';
 
 const App: React.FC = () => {
     const initialState: iActivity = {
@@ -26,7 +25,7 @@ const App: React.FC = () => {
         selectedActivity,
         setSelectedActivity
     ] = React.useState<iActivity | null>(null);
-    
+
     const [editMode, setEditMode] = React.useState(false);
 
     const handleSelectActivity = (id: string) => {
@@ -35,43 +34,42 @@ const App: React.FC = () => {
     };
 
     const getData = async () => {
-        const response: AxiosResponse<iActivity[]> = await axios.get(
-            'http://localhost:5000/api/activities'
-        )
+        const response = await agent.Activities.list();
         let activities: iActivity[] = [];
-        response.data.forEach(activity =>{
+        response.forEach(activity => {
             activity.date = activity.date.split('.')[0];
-            activities.push(activity)
-        })
-        setActivities([...response.data]);
+            activities.push(activity);
+        });
+        setActivities(activities);
     };
 
     const handleOpenCreateForm = () => {
         setSelectedActivity(null);
-        setEditMode(true)
-    }
+        setEditMode(true);
+    };
 
-    const handleCreateActivity = (activity: iActivity) =>{
-        setActivities([...activities, activity])
-        setSelectedActivity(activity)
-        setEditMode(false)
-    }
+    const handleCreateActivity = (activity: iActivity) => {
+        setActivities([...activities, activity]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+    };
 
-
-    const handleEditAcivity = (activity: iActivity) =>{
-        setActivities([...activities.filter(a=>a.id !== activity.id), activity])
-        setSelectedActivity(activity)
-        setEditMode(false)
-    }
+    const handleEditAcivity = (activity: iActivity) => {
+        setActivities([
+            ...activities.filter(a => a.id !== activity.id),
+            activity
+        ]);
+        setSelectedActivity(activity);
+        setEditMode(false);
+    };
 
     const handleDeleteActivity = (id: string) => {
-        setActivities([...activities.filter(a => a.id !== id)])
-    }
+        setActivities([...activities.filter(a => a.id !== id)]);
+    };
 
     React.useEffect(() => {
         getData();
     }, []);
-
 
     return (
         <React.Fragment>
