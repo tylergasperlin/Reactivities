@@ -6,6 +6,7 @@ import ActivityDashboard from '../../features/activities/dashboard/ActivityDashb
 import NavBar from '../../features/nav/NavBar';
 import { iActivity } from '../interfaces/iActivity';
 import agent from '../api/agent';
+import { LoadingComponent } from './LoadingComponent';
 
 const App: React.FC = () => {
     const initialState: iActivity = {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
     ] = React.useState<iActivity | null>(null);
 
     const [editMode, setEditMode] = React.useState(false);
+    const [loading, setLoading] = React.useState(true)
 
     const handleSelectActivity = (id: string) => {
         setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -41,6 +43,8 @@ const App: React.FC = () => {
             activities.push(activity);
         });
         setActivities(activities);
+        setLoading(false)
+
     };
 
     const handleOpenCreateForm = () => {
@@ -73,6 +77,8 @@ const App: React.FC = () => {
     React.useEffect(() => {
         getData();
     }, []);
+
+    if(loading) return <LoadingComponent content='Loading activities...'/>
 
     return (
         <React.Fragment>
