@@ -1,26 +1,31 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 
-import { IPropsDetails } from './IActivityDetails';
+import { IActivityDetails } from './IActivityDetails';
+import ActivityStore from '../../app/stores/activityStore'
+import { observer } from 'mobx-react-lite';
 
-export const ActivityDetails: React.FC<IPropsDetails> = ({
-    activity,
+const ActivityDetails: React.FC<IActivityDetails> = ({
     setEditMode,
-    selectActivity
+    setSelectedActivity
+    
 }) => {
+    const activityStore = React.useContext(ActivityStore)
+    const {selectedActivity: activity} = activityStore; //assign name of activty to selectedActivity
+
     return (
         <Card>
             <Image
-                src={`/assets/category/${activity?.category}.jpg`}
+                src={`/assets/category/${activity!.category}.jpg`}
                 wrapped
                 ui={false}
             />
             <Card.Content>
-                <Card.Header>{activity?.title}</Card.Header>
+                <Card.Header>{activity!.title}</Card.Header>
                 <Card.Meta>
-                    <span>{activity?.date}</span>
+                    <span>{activity!.date}</span>
                 </Card.Meta>
-                <Card.Description>{activity?.description}</Card.Description>
+                <Card.Description>{activity!.description}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths={2}>
@@ -34,10 +39,12 @@ export const ActivityDetails: React.FC<IPropsDetails> = ({
                         basic
                         color='grey'
                         content='Cancel'
-                        onClick={() => selectActivity('')}
+                        onClick={() => setSelectedActivity(null)}
                     />
                 </Button.Group>
             </Card.Content>
         </Card>
     );
 };
+
+export default observer(ActivityDetails)

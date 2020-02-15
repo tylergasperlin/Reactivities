@@ -1,8 +1,7 @@
 import { IActivity } from '../../app/interfaces/IActivity';
 
 
-export interface IPropsDetails {
-    activity: IActivity| null;
-    selectActivity: (id: string) => void;
+export interface IActivityDetails {
+    setSelectedActivity: (activity: IActivity | null) => void;
     setEditMode: (editmode: boolean) => void;
 }
