@@ -1,7 +1,7 @@
 import './App.css';
 import React, { SyntheticEvent } from 'react';
 import { Container } from 'semantic-ui-react';
-
+import {observer} from 'mobx-react-lite'
 import ActivityDashboard from '../../components/dashboard/ActivityDashboard';
 import NavBar from '../../components/nav/NavBar';
 import { IActivity } from '../../app/interfaces/IActivity';
@@ -39,17 +39,6 @@ const App: React.FC = () => {
         setEditMode(false);
     };
 
-    const getData = async () => {
-        const response = await agent.Activities.list();
-        let activities: IActivity[] = [];
-        response.forEach(activity => {
-            activity.date = activity.date.split('.')[0];
-            activities.push(activity);
-        });
-        setActivities(activities);
-        setLoading(false)
-
-    };
 
     const handleOpenCreateForm = () => {
         setSelectedActivity(null);
@@ -88,18 +77,17 @@ const App: React.FC = () => {
     };
 
     React.useEffect(() => {
-        getData();
-    }, []);
+        activityStore.loadActivities()
+    }, [activityStore]); //need to specify dependencies in the brackers for useEffect to work
 
-    if(loading) return <LoadingComponent content='Loading activities...'/>
+    if(activityStore.loadingInitial) return <LoadingComponent content='Loading activities...'/>
 
     return (
         <React.Fragment>
             <NavBar openCreateForm={handleOpenCreateForm} />
             <Container style={{ marginTop: '7em' }}>
-                <h1>{activityStore.title}</h1>
                 <ActivityDashboard
-                    activities={activities}
+                    activities={activityStore.activities}
                     selectActivity={handleSelectActivity}
                     selectedActivity={selectedActivity}
                     editMode={editMode}
@@ -116,4 +104,4 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default observer(App);

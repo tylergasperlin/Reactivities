@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import {observer} from 'mobx-react-lite'
 
 import { IActivityDashboard } from './IActivityDashboard';
-import { ActivityList } from '../activity-list/ActivityList';
+import  ActivityList from '../activity-list/ActivityList';
 import { ActivityDetails } from '../details/ActivityDetails';
 import { ActivityForm } from '../form/ActivityForm';
 
@@ -54,4 +55,4 @@ const ActivityDashboard: React.FC<IActivityDashboard> = ({
     );
 };
 
-export default ActivityDashboard;
+export default observer(ActivityDashboard);
