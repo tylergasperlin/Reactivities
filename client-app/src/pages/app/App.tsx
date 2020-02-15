@@ -7,8 +7,10 @@ import NavBar from '../../components/nav/NavBar';
 import { IActivity } from '../../app/interfaces/IActivity';
 import agent from '../../app/api/agent';
 import { LoadingComponent } from '../../components/loading/LoadingComponent';
+import ActivityStore from '../../app/stores/activityStore'
 
 const App: React.FC = () => {
+    const activityStore = React.useContext(ActivityStore)
     const initialState: IActivity = {
         id: '',
         title: '',
@@ -95,6 +97,7 @@ const App: React.FC = () => {
         <React.Fragment>
             <NavBar openCreateForm={handleOpenCreateForm} />
             <Container style={{ marginTop: '7em' }}>
+                <h1>{activityStore.title}</h1>
                 <ActivityDashboard
                     activities={activities}
                     selectActivity={handleSelectActivity}
