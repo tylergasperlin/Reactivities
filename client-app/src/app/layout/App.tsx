@@ -29,6 +29,7 @@ const App: React.FC = () => {
 
     const [editMode, setEditMode] = React.useState(false);
     const [loading, setLoading] = React.useState(true)
+    const [submitting, setSubmitting] = React.useState(false)
 
     const handleSelectActivity = (id: string) => {
         setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -53,13 +54,16 @@ const App: React.FC = () => {
     };
 
     const handleCreateActivity = async (activity: iActivity) => {
+        setSubmitting(true)
         await agent.Activities.create(activity)
         setActivities([...activities, activity]);
         setSelectedActivity(activity);
         setEditMode(false);
+        setSubmitting(false)
     };
 
     const handleEditAcivity = async (activity: iActivity) => {
+        setSubmitting(true)
         await agent.Activities.update(activity)
         setActivities([
             ...activities.filter(a => a.id !== activity.id),
@@ -67,11 +71,16 @@ const App: React.FC = () => {
         ]);
         setSelectedActivity(activity);
         setEditMode(false);
+        setSubmitting(false)
+
     };
 
     const handleDeleteActivity = async (id: string) => {
+        setSubmitting(true)
         await agent.Activities.delete(id)
         setActivities([...activities.filter(a => a.id !== id)]);
+        setSubmitting(false)
+
     };
 
     React.useEffect(() => {
@@ -94,6 +103,7 @@ const App: React.FC = () => {
                     createActivity={handleCreateActivity}
                     editActivity={handleEditAcivity}
                     deleteActivity={handleDeleteActivity}
+                    submitting={submitting}
                 />
             </Container>
         </React.Fragment>
