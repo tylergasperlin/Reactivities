@@ -2,11 +2,11 @@ import './App.css';
 import React, { SyntheticEvent } from 'react';
 import { Container } from 'semantic-ui-react';
 
-import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
-import NavBar from '../../features/nav/NavBar';
-import { iActivity } from '../interfaces/iActivity';
-import agent from '../api/agent';
-import { LoadingComponent } from './LoadingComponent';
+import ActivityDashboard from '../../components/dashboard/ActivityDashboard';
+import NavBar from '../../components/nav/NavBar';
+import { iActivity } from '../../app/interfaces/iActivity';
+import agent from '../../app/api/agent';
+import { LoadingComponent } from '../../components/loading/LoadingComponent';
 
 const App: React.FC = () => {
     const initialState: iActivity = {

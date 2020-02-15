@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
-import { iActivity, iActivityForm } from '../../../app/interfaces/iActivity';
+import { iActivity, iActivityForm } from '../../app/interfaces/iActivity';
 import {v4 as uuid} from 'uuid'
 
 

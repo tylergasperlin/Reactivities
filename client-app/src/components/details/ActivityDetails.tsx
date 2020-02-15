@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 
-import { iPropsDetails } from '../../../app/interfaces/iActivity';
+import { iPropsDetails } from '../../app/interfaces/iActivity';
 
 export const ActivityDetails: React.FC<iPropsDetails> = ({
     activity,

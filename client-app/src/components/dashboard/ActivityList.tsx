@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 
-import { iActivity, iPropsActivityList } from '../../../app/interfaces/iActivity';
+import { iActivity, iPropsActivityList } from '../../app/interfaces/iActivity';
 
 export const ActivityList: React.FC<iPropsActivityList> = ({activities, selectActivity, deleteActivity, target, submitting}) => {
     return (
