@@ -1,9 +1,9 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Card, Image } from 'semantic-ui-react';
 
 import ActivityStore from '../../app/stores/activityStore';
-import { observer } from 'mobx-react-lite';
-import { RouteComponentProps, Link } from 'react-router-dom';
 import { LoadingComponent } from '../loading/LoadingComponent';
 
 //within app.tsx we define that the url will have a variable named id (could be anything we want ut we chose id. )

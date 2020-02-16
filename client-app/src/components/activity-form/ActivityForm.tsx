@@ -12,7 +12,7 @@ interface DetailParams {
 }
 
 const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
-    match
+    match, history
 }) => {
     const activityStore = React.useContext(ActivityStore);
     const {
@@ -21,17 +21,9 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
         submitting,
         cancelFormOpen,
         activity: initialFormState,
-        loadActivity
+        loadActivity,
+        clearActivity
     } = activityStore;
-
-    React.useEffect(() => {
-        if (match.params.id) {
-            //we can use then beacuse @action loadActivity returns a promise due to it being async
-            loadActivity(match.params.id).then(
-                () => initialFormState && setActivity(initialFormState)
-            );
-        }
-    });
 
     const [activity, setActivity] = React.useState<IActivity>({
         id: '',
@@ -43,15 +35,31 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
         venue: ''
     });
 
-    const handleSubmit = () => {
+    React.useEffect(() => {
+        if (match.params.id && activity.id.length === 0) {
+            //we can use then beacuse @action loadActivity returns a promise due to it being async
+            loadActivity(match.params.id).then(
+                () => initialFormState && setActivity(initialFormState)
+            );
+        }
+        return() => {
+            clearActivity()
+        }
+    }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id.length]);
+
+
+    const handleSubmit = async () => {
         if (activity.id.length === 0) {
             let newActivity = {
                 ...activity,
                 id: uuid()
             };
-            createActivity(newActivity);
+            await createActivity(newActivity);
+            history.push(`/activities/${newActivity.id}`)
         } else {
-            editActivity(activity);
+            await editActivity(activity);
+            history.push(`/activities/${activity.id}`)
+
         }
     };
 

@@ -10,7 +10,7 @@ class ActivityStore {
     //allows you to easily turn arra into object
     @observable activityRegistry = new Map();
     @observable activities: IActivity[] = [];
-    @observable activity: IActivity | undefined;
+    @observable activity: IActivity | null = null;
     @observable loadingInitial = false;
     @observable editMode = false;
     @observable submitting = false;
@@ -59,7 +59,7 @@ class ActivityStore {
     };
 
     @action cancelSelectedActivity = () => {
-        this.activity = undefined;
+        this.activity = null;
     };
 
     @action cancelFormOpen = () => {
@@ -122,6 +122,10 @@ class ActivityStore {
         }
     };
 
+    @action clearActivity = () => {
+        this.activity = null;
+    };
+
     getActivity = (id: string) => {
         return this.activityRegistry.get(id);
     };
@@ -150,7 +154,7 @@ class ActivityStore {
 
     @action openCreateForm = () => {
         this.editMode = true;
-        this.activity = undefined;
+        this.activity = null;
     };
 }
 
