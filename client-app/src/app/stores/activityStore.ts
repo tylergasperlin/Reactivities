@@ -83,6 +83,7 @@ class ActivityStore {
             console.log(error);
         }
     };
+    
     @action createActivity = async (activity: IActivity) => {
         this.submitting = true;
         try {
