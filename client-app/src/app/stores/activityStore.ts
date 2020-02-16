@@ -1,5 +1,5 @@
 import {observable, action, computed} from 'mobx'
-import { createContext } from 'react'
+import { createContext, SyntheticEvent } from 'react'
 import { IActivity } from '../interfaces/IActivity'
 import agent from '../api/agent';
 
@@ -12,6 +12,7 @@ class ActivityStore {
     @observable loadingInitial = false;
     @observable editMode = false;
     @observable submitting = false;
+    @observable target = '';
     //put dates in order
     @computed get activitiesByDate() {
         //Array from values returns an iterable of values from the map
@@ -75,6 +76,21 @@ class ActivityStore {
         }
     }
 
+    @action deleteActivity = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+        this.submitting = true
+        this.target = event.currentTarget.name
+        try{
+            await agent.Activities.delete(id);
+            this.activityRegistry.delete(id);
+            this.submitting = false
+            this.target = ''
+        }catch(error){
+            this.submitting = false;
+            this.target = ''
+            console.log(error)
+        }
+    }
+
     @action openCreateForm = () => {
         this.editMode = true;
         this.selectedActivity = undefined;
@@ -82,4 +98,5 @@ class ActivityStore {
 }
 
 //new adds this to context
-export default createContext(new ActivityStore)
+export default createContext(new ActivityStore())
+

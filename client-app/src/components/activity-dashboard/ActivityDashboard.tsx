@@ -1,33 +1,22 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { observer } from 'mobx-react-lite';
 
-import { IActivityDashboard } from './IActivityDashboard';
-import ActivityList from '../activity-list/ActivityList';
-import ActivityDetails  from '../activity-details/ActivityDetails';
-import ActivityForm  from '../activity-form/ActivityForm';  
 import ActivityStore from '../../app/stores/activityStore';
+import ActivityDetails from '../activity-details/ActivityDetails';
+import ActivityForm from '../activity-form/ActivityForm';
+import ActivityList from '../activity-list/ActivityList';
 
-const ActivityDashboard: React.FC<IActivityDashboard> = ({
-    deleteActivity,
-    submitting,
-    target
-}) => {
+const ActivityDashboard: React.FC = () => {
     const activityStore = React.useContext(ActivityStore);
-    const {editMode, selectedActivity} = activityStore;
+    const { editMode, selectedActivity } = activityStore;
     return (
         <Grid>
             <Grid.Column width={10}>
-                <ActivityList
-                    deleteActivity={deleteActivity}
-                    submitting={submitting}
-                    target={target}
-                />
+                <ActivityList />
             </Grid.Column>
             <Grid.Column width={6}>
-                {selectedActivity && !editMode && (
-                    <ActivityDetails/>
-                )}
+                {selectedActivity && !editMode && <ActivityDetails />}
                 {editMode && (
                     <ActivityForm
                         key={(selectedActivity && selectedActivity.id) || 0}
