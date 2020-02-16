@@ -11,8 +11,11 @@ import { LoadingComponent } from '../loading/LoadingComponent';
 interface DetailParams {
     id: string;
 }
+
+//match and hitory are properties of routeComponentProps
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
-    match
+    match,
+    history
 }) => {
     const activityStore = React.useContext(ActivityStore);
     const {
@@ -56,7 +59,8 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                         basic
                         color='grey'
                         content='Cancel'
-                        onClick={cancelSelectedActivity}
+                        // ex push user to activities page without using router - use code instead
+                        onClick={() => history.push(`/activities`)}
                     />
                 </Button.Group>
             </Card.Content>
