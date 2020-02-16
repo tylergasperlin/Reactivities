@@ -5,9 +5,9 @@ import React from 'react';
 import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
+import ActivityDashboard from '../../components/activity-dashboard/ActivityDashboard';
 import ActivityDetails from '../../components/activity-details/ActivityDetails';
 import ActivityForm from '../../components/activity-form/ActivityForm';
-import ActivityList from '../../components/activity-list/ActivityList';
 import NavBar from '../../components/nav/NavBar';
 import { HomePage } from '../HomePage';
 
@@ -25,7 +25,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                             <Route
                                 exact
                                 path={'/activities'}
-                                component={ActivityList}
+                                component={ActivityDashboard}
                             />
                             <Route
                                 exact

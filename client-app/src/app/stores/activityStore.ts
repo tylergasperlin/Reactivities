@@ -38,6 +38,7 @@ class ActivityStore {
                 //this caused error in strict mode so we need to run in action
                 this.loadingInitial = false;
             });
+            console.log(activityList)
         } catch (error) {
             //same here since we run in strict...
             runInAction('load activities error', () => {
