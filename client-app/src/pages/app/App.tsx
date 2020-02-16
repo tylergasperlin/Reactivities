@@ -6,11 +6,12 @@ import { Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 import ActivityStore from '../../app/stores/activityStore';
+import ActivityDetails from '../../components/activity-details/ActivityDetails';
+import ActivityForm from '../../components/activity-form/ActivityForm';
 import { LoadingComponent } from '../../components/loading/LoadingComponent';
 import NavBar from '../../components/nav/NavBar';
 import { HomePage } from '../HomePage';
-import ActivityDashboard from '../../components/activity-dashboard/ActivityDashboard';
-import ActivityForm from '../../components/activity-form/ActivityForm';
+import ActivityList from '../../components/activity-list/ActivityList';
 
 const App: React.FC = () => {
     const activityStore = React.useContext(ActivityStore);
@@ -27,7 +28,8 @@ const App: React.FC = () => {
             <NavBar />
             <Container style={{ marginTop: '7em' }}>
                 <Route exact path={'/'} component={HomePage} />
-                <Route exact path={'/activities'} component={ActivityDashboard} />
+                <Route exact path={'/activities'} component={ActivityList} />
+                <Route exact path={'/activities/:id'} component={ActivityDetails} />
                 <Route exact path={'/createActivity'} component={ActivityForm} />
             </Container>
         </React.Fragment>

@@ -10,7 +10,7 @@ class ActivityStore {
     //allows you to easily turn arra into object
     @observable activityRegistry = new Map();
     @observable activities: IActivity[] = [];
-    @observable selectedActivity: IActivity | undefined;
+    @observable activity: IActivity | undefined;
     @observable loadingInitial = false;
     @observable editMode = false;
     @observable submitting = false;
@@ -49,7 +49,7 @@ class ActivityStore {
     };
 
     @action selectActivity = (id: string) => {
-        this.selectedActivity = this.activityRegistry.get(id);
+        this.activity = this.activityRegistry.get(id);
         this.editMode = false;
     };
 
@@ -59,7 +59,7 @@ class ActivityStore {
     };
 
     @action cancelSelectedActivity = () => {
-        this.selectedActivity = undefined;
+        this.activity = undefined;
     };
 
     @action cancelFormOpen = () => {
@@ -72,7 +72,7 @@ class ActivityStore {
             await agent.Activities.update(activity);
             runInAction('Editing activity', () => {
                 this.activityRegistry.set(activity.id, activity);
-                this.selectedActivity = activity;
+                this.activity = activity;
                 this.editMode = false;
                 this.submitting = false;
             });
@@ -83,7 +83,7 @@ class ActivityStore {
             console.log(error);
         }
     };
-    
+
     @action createActivity = async (activity: IActivity) => {
         this.submitting = true;
         try {
@@ -99,6 +99,31 @@ class ActivityStore {
             });
             console.log(error);
         }
+    };
+
+    @action loadActivity = async (id: string) => {
+        let activity = this.getActivity(id);
+        if (activity) {
+            this.activity = activity;
+        } else {
+            this.loadingInitial = true;
+            try {
+                activity = await agent.Activities.details(id);
+                runInAction('Getting activity', () => {
+                    this.activity = activity;
+                    this.loadingInitial = false;
+                });
+            } catch (error) {
+                runInAction('Get activity error', () => {
+                    this.loadingInitial = false;
+                });
+                console.log(error);
+            }
+        }
+    };
+
+    getActivity = (id: string) => {
+        return this.activityRegistry.get(id);
     };
 
     @action deleteActivity = async (
@@ -125,7 +150,7 @@ class ActivityStore {
 
     @action openCreateForm = () => {
         this.editMode = true;
-        this.selectedActivity = undefined;
+        this.activity = undefined;
     };
 }
 

@@ -3,19 +3,37 @@ import { Button, Card, Image } from 'semantic-ui-react';
 
 import ActivityStore from '../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
+import { RouteComponentProps } from 'react-router-dom';
+import { LoadingComponent } from '../loading/LoadingComponent';
 
-const ActivityDetails: React.FC = () => {
+//within app.tsx we define that the url will have a variable named id (could be anything we want ut we chose id. )
+//beecause of this we create and interface with id and pass it to RouteComponentProps so we can use match.params.id within loadActivity
+interface DetailParams {
+    id: string;
+}
+const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
+    match
+}) => {
     const activityStore = React.useContext(ActivityStore);
     const {
-        selectedActivity: activity,
+        activity,
         openEditForm,
-        cancelSelectedActivity
+        cancelSelectedActivity,
+        loadActivity,
+        loadingInitial
     } = activityStore; //assign name of activty to selectedActivity
+
+    React.useEffect(() => {
+        loadActivity(match.params.id);
+    }, [loadActivity, match.params.id]); //need to pass dependencies so it only runs once
+
+    if (loadingInitial || !activity)
+        return <LoadingComponent content='Loading activity...' />;
 
     return (
         <Card>
             <Image
-                src={`/assets/category/${activity!.category}.jpg`}
+                src={`/assets/category/${activity?.category}.jpg`}
                 wrapped
                 ui={false}
             />
