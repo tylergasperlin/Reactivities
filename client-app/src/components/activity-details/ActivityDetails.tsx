@@ -20,7 +20,6 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     const activityStore = React.useContext(ActivityStore);
     const {
         activity,
-        openEditForm,
         loadActivity,
         loadingInitial
     } = activityStore; //assign name of activty to selectedActivity
@@ -54,7 +53,6 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                         basic
                         color='blue'
                         content='Edit'
-                        onClick={() => openEditForm(activity!.id)}
                     />
                     <Button
                         basic

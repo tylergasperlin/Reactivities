@@ -9,10 +9,8 @@ class ActivityStore {
     //es6 map  = react to change in entry and additiona and removal
     //allows you to easily turn arra into object
     @observable activityRegistry = new Map();
-    @observable activities: IActivity[] = [];
     @observable activity: IActivity | null = null;
     @observable loadingInitial = false;
-    @observable editMode = false;
     @observable submitting = false;
     @observable target = '';
     //put dates in order
@@ -48,24 +46,6 @@ class ActivityStore {
         }
     };
 
-    @action selectActivity = (id: string) => {
-        this.activity = this.activityRegistry.get(id);
-        this.editMode = false;
-    };
-
-    @action openEditForm = (id: string) => {
-        this.selectActivity = this.activityRegistry.get(id);
-        this.editMode = true;
-    };
-
-    @action cancelSelectedActivity = () => {
-        this.activity = null;
-    };
-
-    @action cancelFormOpen = () => {
-        this.editMode = false;
-    };
-
     @action editActivity = async (activity: IActivity) => {
         this.submitting = true;
         try {
@@ -73,7 +53,6 @@ class ActivityStore {
             runInAction('Editing activity', () => {
                 this.activityRegistry.set(activity.id, activity);
                 this.activity = activity;
-                this.editMode = false;
                 this.submitting = false;
             });
         } catch (error) {
@@ -90,7 +69,6 @@ class ActivityStore {
             await agent.Activities.create(activity);
             runInAction('Creating activity', () => {
                 this.activityRegistry.set(activity.id, activity);
-                this.editMode = false;
                 this.submitting = false;
             });
         } catch (error) {
@@ -152,10 +130,6 @@ class ActivityStore {
         }
     };
 
-    @action openCreateForm = () => {
-        this.editMode = true;
-        this.activity = null;
-    };
 }
 
 //new adds this to context
