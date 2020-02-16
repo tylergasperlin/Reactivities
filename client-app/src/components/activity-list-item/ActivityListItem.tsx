@@ -25,7 +25,7 @@ const ActivityListItem: React.FC<{activity: IActivity}> = ({activity}) => {
                         to={`/activities/${activity.id}`}
                     />
 
-                    <Label basic content='Category' />
+                    <Label basic content={activity.category} />
                 </Item.Extra>
             </Item.Content>
         </Item>

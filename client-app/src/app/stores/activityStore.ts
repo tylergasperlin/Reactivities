@@ -16,9 +16,19 @@ class ActivityStore {
     //put dates in order
     @computed get activitiesByDate() {
         //Array from values returns an iterable of values from the map
-        return Array.from(this.activityRegistry.values()).sort(
+        return this.groupactivitiesByDate(Array.from(this.activityRegistry.values()))
+    }
+
+    groupactivitiesByDate(activities: IActivity[]) {
+        const sortedActivities = activities.sort(
             (a, b) => Date.parse(a.date) - Date.parse(b.date)
-        );
+        )
+        
+        return Object.entries(sortedActivities.reduce((activities, activity) => {
+            const date = activity.date.split('T')[0];
+            activities[date] = activities[date] ? [...activities[date], activity] : [activity]
+            return activities;
+        }, {} as {[key:string] : IActivity[]})) //second {} means we start with empty object
     }
 
     //it is ok to modify state in mobx and common to
@@ -38,7 +48,6 @@ class ActivityStore {
                 //this caused error in strict mode so we need to run in action
                 this.loadingInitial = false;
             });
-            console.log(activityList)
         } catch (error) {
             //same here since we run in strict...
             runInAction('load activities error', () => {
