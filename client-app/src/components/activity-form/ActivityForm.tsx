@@ -1,20 +1,19 @@
 import React from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
-import {IActivityForm} from './IActivityForm'
+import { IActivityForm } from './IActivityForm';
 import { IActivity } from '../../app/interfaces/IActivity';
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid';
+import ActivityStore from '../../app/stores/activityStore';
+import { observer } from 'mobx-react-lite';
 
-
-export const ActivityForm: React.FC<IActivityForm> = ({
+const ActivityForm: React.FC<IActivityForm> = ({
     setEditMode,
     initialFormState,
-    createActivity,
     editActivity,
     submitting
 }) => {
-
-    const initializeForm = () => {
-        if (initialFormState !== null) {
+    const initializeForm = (): IActivity => {
+        if (initialFormState) {
             return initialFormState;
         } else {
             return {
@@ -30,20 +29,23 @@ export const ActivityForm: React.FC<IActivityForm> = ({
     };
 
     const [activity, setActivity] = React.useState<IActivity>(initializeForm);
-
-    const handleSubmit = () =>{
-        if(activity.id.length === 0 ){
+    const activityStore = React.useContext(ActivityStore);
+    const { createActivity } = activityStore;
+    const handleSubmit = () => {
+        if (activity.id.length === 0) {
             let newActivity = {
-                ...activity, id: uuid()
-            }
+                ...activity,
+                id: uuid()
+            };
             createActivity(newActivity);
-
         } else {
-            editActivity(activity)
+            editActivity(activity);
         }
-    }
-    
-    const handleInputChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    };
+
+    const handleInputChange = (
+        event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         const { name, value } = event.currentTarget;
         //we can use [name] to select the input field because name is set to ='title'
         setActivity({ ...activity, [name]: value });
@@ -56,7 +58,7 @@ export const ActivityForm: React.FC<IActivityForm> = ({
                     onChange={handleInputChange}
                     name='title'
                     placeholder={'Title'}
-                    value={activity.title}
+                    value={activity?.title}
                 />
                 <Form.TextArea
                     rows={2}
@@ -78,15 +80,25 @@ export const ActivityForm: React.FC<IActivityForm> = ({
                     type='datetime-local'
                     value={activity.date}
                 />
-                <Form.Input onChange={handleInputChange} name='city' placeholder={'City'} value={activity.city} />
-                <Form.Input onChange={handleInputChange} name='venue' placeholder={'Venue'} value={activity.venue} />
+                <Form.Input
+                    onChange={handleInputChange}
+                    name='city'
+                    placeholder={'City'}
+                    value={activity.city}
+                />
+                <Form.Input
+                    onChange={handleInputChange}
+                    name='venue'
+                    placeholder={'Venue'}
+                    value={activity.venue}
+                />
                 <Button
                     loading={submitting}
                     floated='right'
                     positive
                     type='submit'
                     content='Submit'
-                    onClick={()=>handleSubmit()}
+                    onClick={() => handleSubmit()}
                 />
                 <Button
                     floated='right'
@@ -98,3 +110,5 @@ export const ActivityForm: React.FC<IActivityForm> = ({
         </Segment>
     );
 };
+
+export default observer(ActivityForm);

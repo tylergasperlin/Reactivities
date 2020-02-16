@@ -8,6 +8,7 @@ class ActivityStore {
     @observable selectedActivity: IActivity | undefined;
     @observable loadingInitial = false;
     @observable editMode = false;
+    @observable submitting = false;
 
     //it is ok to modify state in mobx and common to
     @action loadActivities = async () => {
@@ -23,6 +24,24 @@ class ActivityStore {
     @action selectActivity = (id: string) => {
         this.selectedActivity = this.activities.find(a=> a.id === id);
         this.editMode = false;
+    }
+
+    @action createActivity = async (activity: IActivity) => {
+        this.submitting = true;
+        try{
+            await agent.Activities.create(activity)
+            this.activities.push(activity)
+            this.editMode = false;
+            this.submitting = false
+        } catch (error) {
+            this.submitting = false
+            console.log(error)
+        }
+    }
+
+    @action openCreateForm = () => {
+        this.editMode = true;
+        this.selectedActivity = undefined;
     }
 }
 

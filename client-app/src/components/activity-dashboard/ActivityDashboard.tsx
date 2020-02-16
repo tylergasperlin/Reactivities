@@ -5,14 +5,13 @@ import { observer } from 'mobx-react-lite';
 import { IActivityDashboard } from './IActivityDashboard';
 import ActivityList from '../activity-list/ActivityList';
 import ActivityDetails  from '../activity-details/ActivityDetails';
-import { ActivityForm } from '../activity-form/ActivityForm';
+import ActivityForm  from '../activity-form/ActivityForm';  
 import ActivityStore from '../../app/stores/activityStore';
 
 const ActivityDashboard: React.FC<IActivityDashboard> = ({
     setEditMode,
     setSelectedActivity,
     editActivity,
-    createActivity,
     deleteActivity,
     submitting,
     target
@@ -41,7 +40,6 @@ const ActivityDashboard: React.FC<IActivityDashboard> = ({
                         setEditMode={setEditMode}
                         initialFormState={selectedActivity!}
                         editActivity={editActivity}
-                        createActivity={createActivity}
                         submitting={submitting}
                     />
                 )}{' '}
