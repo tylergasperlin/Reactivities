@@ -30,7 +30,8 @@ const App: React.FC = () => {
                 <Route exact path={'/'} component={HomePage} />
                 <Route exact path={'/activities'} component={ActivityList} />
                 <Route exact path={'/activities/:id'} component={ActivityDetails} />
-                <Route exact path={'/createActivity'} component={ActivityForm} />
+                {/* can use array to specify two paths for same component */}
+                <Route exact path={['/createActivity', '/manage/:id']} component={ActivityForm} />
             </Container>
         </React.Fragment>
     );

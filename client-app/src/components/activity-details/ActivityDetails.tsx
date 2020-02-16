@@ -3,7 +3,7 @@ import { Button, Card, Image } from 'semantic-ui-react';
 
 import ActivityStore from '../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { LoadingComponent } from '../loading/LoadingComponent';
 
 //within app.tsx we define that the url will have a variable named id (could be anything we want ut we chose id. )
@@ -21,7 +21,6 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     const {
         activity,
         openEditForm,
-        cancelSelectedActivity,
         loadActivity,
         loadingInitial
     } = activityStore; //assign name of activty to selectedActivity
@@ -50,6 +49,8 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             <Card.Content extra>
                 <Button.Group widths={2}>
                     <Button
+                        as={Link}
+                        to={`/manage/${activity.id}`}
                         basic
                         color='blue'
                         content='Edit'

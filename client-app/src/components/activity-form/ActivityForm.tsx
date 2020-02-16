@@ -1,36 +1,48 @@
-import React from 'react';
-import { Segment, Form, Button } from 'semantic-ui-react';
-import { IActivityForm } from './IActivityForm';
-import { IActivity } from '../../app/interfaces/IActivity';
-import { v4 as uuid } from 'uuid';
-import ActivityStore from '../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { Button, Form, Segment } from 'semantic-ui-react';
+import { v4 as uuid } from 'uuid';
 
-const ActivityForm: React.FC<IActivityForm> = ({ initialFormState }) => {
-    const initializeForm = (): IActivity => {
-        if (initialFormState) {
-            return initialFormState;
-        } else {
-            return {
-                id: '',
-                title: '',
-                category: '',
-                description: '',
-                date: '',
-                city: '',
-                venue: ''
-            };
-        }
-    };
+import { IActivity } from '../../app/interfaces/IActivity';
+import ActivityStore from '../../app/stores/activityStore';
 
-    const [activity, setActivity] = React.useState<IActivity>(initializeForm);
+interface DetailParams {
+    id: string;
+}
+
+const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
+    match
+}) => {
     const activityStore = React.useContext(ActivityStore);
     const {
         createActivity,
         editActivity,
         submitting,
-        cancelFormOpen
+        cancelFormOpen,
+        activity: initialFormState,
+        loadActivity
     } = activityStore;
+
+    React.useEffect(() => {
+        if (match.params.id) {
+            //we can use then beacuse @action loadActivity returns a promise due to it being async
+            loadActivity(match.params.id).then(
+                () => initialFormState && setActivity(initialFormState)
+            );
+        }
+    });
+
+    const [activity, setActivity] = React.useState<IActivity>({
+        id: '',
+        title: '',
+        category: '',
+        description: '',
+        date: '',
+        city: '',
+        venue: ''
+    });
+
     const handleSubmit = () => {
         if (activity.id.length === 0) {
             let newActivity = {
