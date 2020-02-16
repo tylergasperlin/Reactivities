@@ -6,9 +6,7 @@ import { v4 as uuid } from 'uuid';
 import ActivityStore from '../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
 
-const ActivityForm: React.FC<IActivityForm> = ({
-    initialFormState,
-}) => {
+const ActivityForm: React.FC<IActivityForm> = ({ initialFormState }) => {
     const initializeForm = (): IActivity => {
         if (initialFormState) {
             return initialFormState;
@@ -27,7 +25,12 @@ const ActivityForm: React.FC<IActivityForm> = ({
 
     const [activity, setActivity] = React.useState<IActivity>(initializeForm);
     const activityStore = React.useContext(ActivityStore);
-    const { createActivity, editActivity, submitting, cancelFormOpen} = activityStore;
+    const {
+        createActivity,
+        editActivity,
+        submitting,
+        cancelFormOpen
+    } = activityStore;
     const handleSubmit = () => {
         if (activity.id.length === 0) {
             let newActivity = {
@@ -101,7 +104,7 @@ const ActivityForm: React.FC<IActivityForm> = ({
                     floated='right'
                     type='button'
                     content='Cancel'
-                    onClick={cancelFormOpen}    
+                    onClick={cancelFormOpen}
                 />
             </Form>
         </Segment>
