@@ -12,11 +12,11 @@ const ActivityList: React.FC<IActivityList> = ({
     submitting
 }) => {
     const activityStore = React.useContext(ActivityStore)
-    const {activities, selectActivity} = activityStore
+    const {activitiesByDate, selectActivity} = activityStore
     return (
         <Segment clearing>
             <Item.Group divided>
-                {activities.map(
+                {activitiesByDate.map(
                     (activity: IActivity): JSX.Element => (
                         <Item key={activity.id}>
                             <Item.Content>

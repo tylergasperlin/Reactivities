@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx'
+import {observable, action, computed} from 'mobx'
 import { createContext } from 'react'
 import { IActivity } from '../interfaces/IActivity'
 import agent from '../api/agent';
@@ -9,6 +9,11 @@ class ActivityStore {
     @observable loadingInitial = false;
     @observable editMode = false;
     @observable submitting = false;
+
+    //put dates in order
+    @computed get activitiesByDate() {
+        return this.activities.sort((a,b) => Date.parse(a.date) - Date.parse(b.date))
+    }
 
     //it is ok to modify state in mobx and common to
     @action loadActivities = async () => {
