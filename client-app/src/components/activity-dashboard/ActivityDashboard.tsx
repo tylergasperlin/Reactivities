@@ -9,9 +9,6 @@ import ActivityForm  from '../activity-form/ActivityForm';
 import ActivityStore from '../../app/stores/activityStore';
 
 const ActivityDashboard: React.FC<IActivityDashboard> = ({
-    setEditMode,
-    setSelectedActivity,
-    editActivity,
     deleteActivity,
     submitting,
     target
@@ -29,18 +26,12 @@ const ActivityDashboard: React.FC<IActivityDashboard> = ({
             </Grid.Column>
             <Grid.Column width={6}>
                 {selectedActivity && !editMode && (
-                    <ActivityDetails
-                        setSelectedActivity={setSelectedActivity}
-                        setEditMode={setEditMode}
-                    />
+                    <ActivityDetails/>
                 )}
                 {editMode && (
                     <ActivityForm
                         key={(selectedActivity && selectedActivity.id) || 0}
-                        setEditMode={setEditMode}
                         initialFormState={selectedActivity!}
-                        editActivity={editActivity}
-                        submitting={submitting}
                     />
                 )}{' '}
             </Grid.Column>

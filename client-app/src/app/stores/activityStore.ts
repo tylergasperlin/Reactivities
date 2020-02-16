@@ -18,6 +18,7 @@ class ActivityStore {
         return Array.from(this.activityRegistry.values()).sort((a,b) => Date.parse(a.date) - Date.parse(b.date))
     }
 
+    
     //it is ok to modify state in mobx and common to
     @action loadActivities = async () => {
         this.loadingInitial = true;
@@ -35,6 +36,32 @@ class ActivityStore {
         this.editMode = false;
     }
 
+    @action openEditForm = (id: string) => {
+        this.selectActivity = this.activityRegistry.get(id);
+        this.editMode = true
+    }
+
+    @action cancelSelectedActivity = () =>{
+        this.selectedActivity = undefined
+    }
+
+    @action cancelFormOpen = () => {
+        this.editMode = false;
+    }
+
+    @action editActivity = async (activity: IActivity) => {
+        this.submitting = true;
+        try{
+            await agent.Activities.update(activity)
+            this.activityRegistry.set(activity.id, activity)
+            this.selectedActivity = activity
+            this.editMode = false
+            this.submitting =false
+        }catch (error){
+            console.log(error)
+            this.submitting = false
+        }
+    }
     @action createActivity = async (activity: IActivity) => {
         this.submitting = true;
         try{

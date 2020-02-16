@@ -3,9 +3,6 @@ import { SyntheticEvent } from 'react';
 
 
 export interface IActivityDashboard {
-    setEditMode: (editmode: boolean)=>void;
-    setSelectedActivity: (activity: IActivity | null) => void;
-    editActivity: (activity: IActivity) => void;
     deleteActivity:(event: SyntheticEvent<HTMLButtonElement> ,activitiy: string) => void;
     submitting: boolean;
     target: string
