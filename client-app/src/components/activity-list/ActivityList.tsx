@@ -16,16 +16,14 @@ const ActivityList: React.FC = () => {
                         {group}
                     </Label>
 
-                    <Segment clearing>
-                        <Item.Group divided>
-                            {activities.map(activity => (
-                                <ActivityListItem
-                                    key={activity.id}
-                                    activity={activity}
-                                />
-                            ))}
-                        </Item.Group>
-                    </Segment>
+                    <Item.Group divided>
+                        {activities.map(activity => (
+                            <ActivityListItem
+                                key={activity.id}
+                                activity={activity}
+                            />
+                        ))}
+                    </Item.Group>
                 </React.Fragment>
             ))}
         </React.Fragment>
