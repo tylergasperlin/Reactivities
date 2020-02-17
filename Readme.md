@@ -21,3 +21,8 @@ Steps to reseed db
  Clean Architecture
  Devices/DB/UI/Web > Gateways/Controllers/Presenters > UseCases - Appliction Business Rules > Entities - Enterprise Busienss Rules
 
+//Client Error Handling Strategy
+1. 401 unauthorized 
+2. 500 
+3. 404 not found resouce not found in db
+4. 400 Bad request to validate properties 
