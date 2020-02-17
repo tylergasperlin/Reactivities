@@ -7,6 +7,8 @@ using Persistence;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Application.Activities;
+using FluentValidation.AspNetCore;
+using Application;
 
 namespace API
 {
@@ -35,7 +37,9 @@ namespace API
             //we want to use mediatr using dependecny injection
             //only need to tell mediator about one handler and then it will reference that assembly for any others
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(cfg => {
+                cfg.RegisterValidatorsFromAssemblyContaining<Create>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
