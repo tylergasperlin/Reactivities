@@ -19,7 +19,6 @@ interface DetailParams {
 //match and hitory are properties of routeComponentProps
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     match,
-    history
 }) => {
     const activityStore = React.useContext(ActivityStore);
     const { activity, loadActivity, loadingInitial } = activityStore; //assign name of activty to selectedActivity
@@ -34,7 +33,7 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     return (
         <Grid>
             <Grid.Column width={10}>
-                <ActivityDetailedHeader/>
+                <ActivityDetailedHeader activity={activity}/>
                 <ActivityDetailedInfo/>
                 <ActivityDetailedChat/>
             </Grid.Column>
