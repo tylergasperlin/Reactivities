@@ -9,6 +9,7 @@ using MediatR;
 using Application.Activities;
 using FluentValidation.AspNetCore;
 using Application;
+using API.Middleware;
 
 namespace API
 {
@@ -48,9 +49,12 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //detailed info for developers if something goes wrong
+            
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                
+                //app.UseDeveloperExceptionPage();
             }
             //coomment out for now so app will use http
             //app.UseHttpsRedirection();
