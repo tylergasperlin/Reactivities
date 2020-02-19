@@ -106,7 +106,7 @@ class ActivityStore {
                     this.loadingInitial = false;
                 });
                 //this throws the error from agent.ts for another component to
-                throw error;
+                console.log(error)
             }
         }
     };

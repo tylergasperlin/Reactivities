@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-
+import { history } from '../..'
 import { IActivity } from '../interfaces/IActivity';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 //when errors come back we intercept them and do something with them
 axios.interceptors.response.use(undefined, error => {
     if(error.response.status === 404) {
-        throw error.response;
+        history.push('/notfound')
     }
 })
 
