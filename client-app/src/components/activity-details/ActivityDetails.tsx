@@ -19,17 +19,24 @@ interface DetailParams {
 //match and hitory are properties of routeComponentProps
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     match,
+    history
 }) => {
     const activityStore = React.useContext(ActivityStore);
     const { activity, loadActivity, loadingInitial } = activityStore; //assign name of activty to selectedActivity
 
     React.useEffect(() => {
-        loadActivity(match.params.id);
-    }, [loadActivity, match.params.id]); //need to pass dependencies so it only runs once
+        loadActivity(match.params.id).catch(() => {
+            //this doesn't have to be not found.. could be anything but NotFound.tsx will come up by default when there is no matching route
+            history.push('/notfound')
+        });
+    }, [loadActivity, match.params.id, history]); //need to pass dependencies so it only runs once
 
     if (loadingInitial || !activity)
         return <LoadingComponent content='Loading activity...' />;
 
+    if(!activity)
+        return <h2>Activity not found</h2>
+    
     return (
         <Grid>
             <Grid.Column width={10}>

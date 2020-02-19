@@ -4,8 +4,11 @@ import { IActivity } from '../interfaces/IActivity';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
+//when errors come back we intercept them and do something with them
 axios.interceptors.response.use(undefined, error => {
-    console.log(error.response)
+    if(error.response.status === 404) {
+        throw error.response;
+    }
 })
 
 const responseBody = (response: AxiosResponse) => response.data;

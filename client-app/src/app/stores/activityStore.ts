@@ -105,7 +105,8 @@ class ActivityStore {
                 runInAction('Get activity error', () => {
                     this.loadingInitial = false;
                 });
-                console.log(error);
+                //this throws the error from agent.ts for another component to
+                throw error;
             }
         }
     };
@@ -137,6 +138,7 @@ class ActivityStore {
                 this.target = '';
             });
             console.log(error);
+
         }
     };
 
