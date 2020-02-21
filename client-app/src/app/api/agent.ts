@@ -8,6 +8,9 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 //when errors come back we intercept them and do something with them
 axios.interceptors.response.use(undefined, error => {
     const { status, data, config } = error.response;
+    if(error.message === 'Network Error' && !error.response){
+        toast.error('Network error - make sure API is running')
+    }
     if (status === 404) {
         history.push('/notfound'); 
     }
