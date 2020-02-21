@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { history } from '../..';
 import { IActivity } from '../interfaces/IActivity';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -8,7 +9,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 axios.interceptors.response.use(undefined, error => {
     const { status, data, config } = error.response;
     if (status === 404) {
-        history.push('/notfound');
+        history.push('/notfound'); 
     }
     if (
         status === 400 &&
@@ -16,6 +17,8 @@ axios.interceptors.response.use(undefined, error => {
         data.errors.hasOwnProperty('id')
     ) {
         history.push('/notfound');
+    } if (status === 500){
+        toast.error('Something went wrong - try again later. Administrators: this is a  500 server error.')
     }
 });
 

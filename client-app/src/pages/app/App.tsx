@@ -14,10 +14,12 @@ import ActivityForm from '../../components/activity-form/ActivityForm';
 import NavBar from '../../components/nav/NavBar';
 import { HomePage } from '../HomePage';
 import NotFound from '../../components/not-found/NotFound';
+import {ToastContainer} from 'react-toastify';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
     return (
         <React.Fragment>
+            <ToastContainer position='bottom-right'/>
             <Route exact path={'/'} component={HomePage} />
             <Route
                 // when we git route with forward slash and anything else return the following
