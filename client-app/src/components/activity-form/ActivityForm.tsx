@@ -7,7 +7,8 @@ import { Form as FinalForm, Field } from 'react-final-form';
 
 import { IActivity } from '../../app/interfaces/IActivity';
 import ActivityStore from '../../app/stores/activityStore';
-import TextInput from '../text-input/TextInput';
+import TextInput from '../form/TextInput';
+import TextAreaInput from '../form/TextAreaInput';
 
 interface DetailParams {
     id: string;
@@ -91,7 +92,8 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                                     name='description'
                                     placeholder={'Description'}
                                     value={activity.description}
-                                    component={TextInput}
+                                    component={TextAreaInput}
+                                    rows={3}
 
                                 />
                                 <Field
