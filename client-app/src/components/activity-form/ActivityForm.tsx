@@ -9,6 +9,8 @@ import { IActivity } from '../../app/interfaces/IActivity';
 import ActivityStore from '../../app/stores/activityStore';
 import TextInput from '../form/TextInput';
 import TextAreaInput from '../form/TextAreaInput';
+import { SelectInput } from '../form/SelectInput';
+import { category } from '../../helpers/categoryOptions';
 
 interface DetailParams {
     id: string;
@@ -100,8 +102,8 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                                     placeholder={'Category'}
                                     name='category'
                                     value={activity.category}
-                                    component={TextInput}
-
+                                    component={SelectInput}
+                                    options={category}
                                 />
                                 <Field
                                     placeholder={'Date'}
