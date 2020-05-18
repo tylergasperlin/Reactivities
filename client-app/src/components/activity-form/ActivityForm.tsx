@@ -42,25 +42,20 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({ match, hist
         }
     }, [loadActivity, match.params.id]);
 
-    // const handleSubmit = async () => {
-    //     if (activity.id.length === 0) {
-    //         let newActivity = {
-    //             ...activity,
-    //             id: uuid()
-    //         };
-    //         await createActivity(newActivity);
-    //         history.push(`/activities/${newActivity.id}`);
-    //     } else {
-    //         await editActivity(activity);
-    //         history.push(`/activities/${activity.id}`);
-    //     }
-    // };
-
-    const handleFinalFormSubmit = (values: any) => {
+    const handleFinalFormSubmit = async (values: any) => {
         const dateAndtime = combineDateAndTime(values.date, values.time);
         const { date, time, ...activity } = values;
         activity.date = dateAndtime;
-        console.log(activity);
+        if (!activity.id) {
+            let newActivity = {
+                ...activity,
+                id: uuid()
+            };
+            await createActivity(newActivity);
+        } else {
+            await editActivity(activity);
+        }
+
     };
 
     return (

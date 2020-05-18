@@ -2,6 +2,7 @@ import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IActivity } from '../interfaces/IActivity';
 import agent from '../api/agent';
+import { history } from '../..';
 
 //this makes it so you can only modify state within action decorators
 configure({ enforceActions: 'always' });
@@ -66,6 +67,7 @@ class ActivityStore {
                 this.activity = activity;
                 this.submitting = false;
             });
+            history.push(`/activities/${activity.id}`)
         } catch (error) {
             runInAction('Editing activity error', () => {
                 this.submitting = false;
@@ -82,6 +84,7 @@ class ActivityStore {
                 this.activityRegistry.set(activity.id, activity);
                 this.submitting = false;
             });
+            history.push(`/activities/${activity.id}`)
         } catch (error) {
             runInAction('Creating activity failed', () => {
                 this.submitting = false;
