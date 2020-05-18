@@ -21,12 +21,12 @@ class ActivityStore {
 
     groupactivitiesByDate(activities: IActivity[]) {
         const sortedActivities = activities.sort(
-            (a, b) => a.date!.getTime() - b.date!.getTime()
+            (a, b) => a.date.getTime() - b.date.getTime()
             
         )
         
         return Object.entries(sortedActivities.reduce((activities, activity) => {
-            const date = activity.date!.toISOString().split('T')[0];
+            const date = activity.date.toISOString().split('T')[0];
             activities[date] = activities[date] ? [...activities[date], activity] : [activity]
             return activities;
         }, {} as {[key:string] : IActivity[]})) //second {} means we start with empty object
@@ -42,7 +42,7 @@ class ActivityStore {
             //loading activities is optional but is helpful with dev tools
             runInAction('loading activities', () => {
                 activityList.forEach(activity => {
-                    activity.date = new Date(activity.date!);
+                    activity.date = new Date(activity.date);
                     //turns the array into an object with key activity.id
                     this.activityRegistry.set(activity.id, activity);
                 });
