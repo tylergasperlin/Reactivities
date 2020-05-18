@@ -22,7 +22,7 @@ export const ActivityDetailedHeader: React.FC<{activity: IActivity}> = ({activit
     return (
             <Segment.Group>
               <Segment basic attached='top' style={{ padding: '0' }}>
-                <Image src={`../../../public/assets/category/${activity.category}.jpg`} fluid  style={activityImageStyle}/>
+                <Image src={`/assets/category/${activity.category}.jpg`} fluid  style={activityImageStyle}/>
                 <Segment basic style={activityImageTextStyle}>
                   <Item.Group>
                     <Item>
