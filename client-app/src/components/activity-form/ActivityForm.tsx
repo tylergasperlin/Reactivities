@@ -11,6 +11,7 @@ import TextInput from '../form/TextInput';
 import TextAreaInput from '../form/TextAreaInput';
 import { SelectInput } from '../form/SelectInput';
 import { category } from '../../helpers/categoryOptions';
+import { DateInput } from '../form/DateInput';
 
 interface DetailParams {
     id: string;
@@ -35,7 +36,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
         title: '',
         category: '',
         description: '',
-        date: '',
+        date: null,
         city: '',
         venue: ''
     });
@@ -106,10 +107,10 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                                     options={category}
                                 />
                                 <Field
+                                    component={DateInput}
                                     placeholder={'Date'}
                                     name='date'
-                                    value={activity.date}
-                                    component={TextInput}
+                                    value={activity.date!}
 
                                 />
                                 <Field
