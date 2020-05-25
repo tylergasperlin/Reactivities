@@ -103,7 +103,9 @@ class ActivityStore {
             try {
                 activity = await agent.Activities.details(id);
                 runInAction('Getting activity', () => {
+                    activity.date = new Date(activity.date)
                     this.activity = activity;
+                    this.activityRegistry.set(activity.id, activity);
                     this.loadingInitial = false;
                 });
                 return activity;
