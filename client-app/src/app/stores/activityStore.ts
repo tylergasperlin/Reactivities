@@ -3,6 +3,7 @@ import { createContext, SyntheticEvent } from 'react';
 import { IActivity } from '../interfaces/IActivity';
 import agent from '../api/agent';
 import { history } from '../..';
+import { toast } from 'react-toastify';
 
 //this makes it so you can only modify state within action decorators
 configure({ enforceActions: 'always' });
@@ -72,7 +73,8 @@ class ActivityStore {
             runInAction('Editing activity error', () => {
                 this.submitting = false;
             });
-            console.log(error);
+            toast.error('Problem submitting data')
+            console.log(error.response);
         }
     };
 
@@ -89,7 +91,8 @@ class ActivityStore {
             runInAction('Creating activity failed', () => {
                 this.submitting = false;
             });
-            console.log(error);
+            toast.error('Problem submitting data')
+            console.log(error.response);
         }
     };
 
@@ -114,7 +117,7 @@ class ActivityStore {
                     this.loadingInitial = false;
                 });
                 //this throws the error from agent.ts for another component to
-                console.log(error)
+                console.log(error.response)
             }
         }
     };
