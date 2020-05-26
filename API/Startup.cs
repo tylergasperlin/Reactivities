@@ -12,6 +12,8 @@ using Application;
 using API.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Domain;
+using Application.Interfaces;
+using Infrastructure.Security;
 
 namespace API
 {
@@ -50,6 +52,8 @@ namespace API
             identitybuilder.AddSignInManager<SignInManager<AppUser>>();
             // System security is contained here
             services.AddAuthentication();
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
