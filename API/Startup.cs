@@ -11,6 +11,7 @@ using FluentValidation.AspNetCore;
 using Application;
 using API.Middleware;
 using Microsoft.AspNetCore.Identity;
+using Domain;
 
 namespace API
 {
@@ -47,6 +48,8 @@ namespace API
             var identitybuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identitybuilder.AddEntityFrameworkStores<DataContext>();
             identitybuilder.AddSignInManager<SignInManager<AppUser>>();
+            // System security is contained here
+            services.AddAuthentication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
