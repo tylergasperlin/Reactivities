@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Identity;
 using Domain;
 using Application.Interfaces;
 using Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace API
 {
@@ -50,15 +53,26 @@ namespace API
             var identitybuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identitybuilder.AddEntityFrameworkStores<DataContext>();
             identitybuilder.AddSignInManager<SignInManager<AppUser>>();
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Super secret key"));
             // System security is contained here
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt => {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = false,
+                        ValidateIssuer = false
+                    };
+                });
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         //add middleware 
-        //orering is important!!
+        //ordering is important!!
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //detailed info for developers if something goes wrong
@@ -73,10 +87,10 @@ namespace API
             //app.UseHttpsRedirection();
             //when requests comes into api it needs to be routed
             app.UseRouting();
-            
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("CorsPolicy");
             //map controller enpoints to api
             app.UseEndpoints(endpoints =>
             {
