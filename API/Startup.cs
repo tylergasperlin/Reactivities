@@ -17,6 +17,8 @@ using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace API
 {
@@ -45,7 +47,11 @@ namespace API
             //we want to use mediatr using dependecny injection
             //only need to tell mediator about one handler and then it will reference that assembly for any others
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddControllers().AddFluentValidation(cfg => {
+            // This will enable authorization on every controller method
+            services.AddControllers(opt => {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            }).AddFluentValidation(cfg => {
                 cfg.RegisterValidatorsFromAssemblyContaining<Create>();
             });
 
@@ -54,7 +60,7 @@ namespace API
             identitybuilder.AddEntityFrameworkStores<DataContext>();
             identitybuilder.AddSignInManager<SignInManager<AppUser>>();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Super secret key"));
             // System security is contained here
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt => {
