@@ -26,3 +26,6 @@ Steps to reseed db
 2. 500 
 3. 404 not found resouce not found in db
 4. 400 Bad request to validate properties 
+
+
+// Used: dotnet user-secrets add "TokenKey" "key name" to store the hashing key in dotnet locally for development. Security measure
