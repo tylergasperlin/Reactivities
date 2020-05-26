@@ -4,7 +4,6 @@ import { IActivity } from '../interfaces/IActivity';
 import agent from '../api/agent';
 import { history } from '../..';
 import { toast } from 'react-toastify';
-
 //this makes it so you can only modify state within action decorators
 configure({ enforceActions: 'always' });
 class ActivityStore {
