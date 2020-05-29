@@ -1,12 +1,17 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IActivity } from '../interfaces/IActivity';
-import agent from '../api/agent';
+import { Activities } from '../api/agent';
 import { history } from '../..';
 import { toast } from 'react-toastify';
+import { RootStore } from './rootStore';
 //this makes it so you can only modify state within action decorators
 configure({ enforceActions: 'always' });
-class ActivityStore {
+export default class ActivityStore {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
     //es6 map  = react to change in entry and additiona and removal
     //allows you to easily turn arra into object
     @observable activityRegistry = new Map();
@@ -38,7 +43,7 @@ class ActivityStore {
         try {
             //this works in strict mode because it comes before the await call
             this.loadingInitial = true;
-            const activityList = await agent.Activities.list();
+            const activityList = await Activities.list();
             //since we run in strict we must use runInaction
             //loading activities is optional but is helpful with dev tools
             runInAction('loading activities', () => {
@@ -61,7 +66,7 @@ class ActivityStore {
     @action editActivity = async (activity: IActivity) => {
         this.submitting = true;
         try {
-            await agent.Activities.update(activity);
+            await Activities.update(activity);
             runInAction('Editing activity', () => {
                 this.activityRegistry.set(activity.id, activity);
                 this.activity = activity;
@@ -80,7 +85,7 @@ class ActivityStore {
     @action createActivity = async (activity: IActivity) => {
         this.submitting = true;
         try {
-            await agent.Activities.create(activity);
+            await Activities.create(activity);
             runInAction('Creating activity', () => {
                 this.activityRegistry.set(activity.id, activity);
                 this.submitting = false;
@@ -103,7 +108,7 @@ class ActivityStore {
         } else {
             this.loadingInitial = true;
             try {
-                activity = await agent.Activities.details(id);
+                activity = await Activities.details(id);
                 runInAction('Getting activity', () => {
                     activity.date = new Date(activity.date)
                     this.activity = activity;
@@ -115,7 +120,7 @@ class ActivityStore {
                 runInAction('Get activity error', () => {
                     this.loadingInitial = false;
                 });
-                //this throws the error from agent.ts for another component to
+                //this throws the error from ts for another component to
                 console.log(error.response)
             }
         }
@@ -136,7 +141,7 @@ class ActivityStore {
         this.submitting = true;
         this.target = event.currentTarget.name;
         try {
-            await agent.Activities.delete(id);
+            await Activities.delete(id);
             runInAction('Deleting activity', () => {
                 this.activityRegistry.delete(id);
                 this.submitting = false;
@@ -153,6 +158,3 @@ class ActivityStore {
     };
 
 }
-
-//new adds this to context
-export default createContext(new ActivityStore());

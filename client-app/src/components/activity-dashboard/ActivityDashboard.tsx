@@ -5,15 +5,17 @@ import { Grid } from 'semantic-ui-react';
 import ActivityList from '../activity-list/ActivityList';
 import { LoadingComponent } from '../loading/LoadingComponent';
 import ActivityStore from '../../app/stores/activityStore'
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const ActivityDashboard: React.FC = () => {
-    const activityStore = React.useContext(ActivityStore);
+    const { activityStore } = React.useContext(RootStoreContext);
+    const { loadActivities, loadingInitial} = activityStore;
 
     React.useEffect(() => {
-        activityStore.loadActivities();
+        loadActivities();
     }, [activityStore]); //need to specify dependencies in the brackers for useEffect to work
 
-    if (activityStore.loadingInitial)
+    if (loadingInitial)
         return <LoadingComponent content='Loading activities...' />;
         
     return (

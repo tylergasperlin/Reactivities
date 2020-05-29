@@ -9,6 +9,7 @@ import ActivityDetailedHeader from '../activity-detailed-header/ActivityDetailed
 import { ActivityDetailedInfo } from '../activity-detailed-info/ActivityDetailedInfo';
 import { ActivityDetailedSidebar } from '../activity-detailed-sidebar/ActivityDetailedSidebar';
 import { LoadingComponent } from '../loading/LoadingComponent';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 //within app.tsx we define that the url will have a variable named id (could be anything we want ut we chose id. )
 //beecause of this we create and interface with id and pass it to RouteComponentProps so we can use match.params.id within loadActivity
@@ -21,7 +22,7 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     match,
     history
 }) => {
-    const activityStore = React.useContext(ActivityStore);
+    const { activityStore } = React.useContext(RootStoreContext);
     const { activity, loadActivity, loadingInitial } = activityStore; //assign name of activty to selectedActivity
 
     React.useEffect(() => {

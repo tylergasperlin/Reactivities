@@ -4,9 +4,10 @@ import { Item, Label } from 'semantic-ui-react';
 
 import ActivityStore from '../../app/stores/activityStore';
 import ActivityListItem from '../activity-list-item/ActivityListItem';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const ActivityList: React.FC = () => {
-    const activityStore = React.useContext(ActivityStore);
+    const { activityStore } = React.useContext(RootStoreContext);
     const { activitiesByDate } = activityStore;
     return (
         <React.Fragment>

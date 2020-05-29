@@ -60,7 +60,7 @@ const requests = {
             .then(responseBody)
 };
 
-const Activities = {
+export const Activities = {
     list: (): Promise<IActivity[]> => requests.get('/activities'),
     details: (id: string) => requests.get(`/activities/${id}`),
     create: (activity: IActivity) => requests.post(`/activities`, activity),
@@ -69,13 +69,10 @@ const Activities = {
     delete: (id: string) => requests.delete(`/activities/${id}`)
 };
 
-const User = {
+export const User = {
     current: (): Promise<IUser> => requests.get('/user'),
     login: (user: IUserFormValues): Promise<IUser> => requests.post('/user/login', user),
     register: (user: IUserFormValues): Promise<IUser> => requests.post('/user/register', user)
 
 }
 
-export default {
-    Activities
-};
