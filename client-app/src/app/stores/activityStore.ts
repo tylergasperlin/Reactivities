@@ -1,12 +1,12 @@
-import { observable, action, computed, configure, runInAction } from 'mobx';
+import { action, computed, observable, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
-import { IActivity } from '../interfaces/IActivity';
-import { Activities } from '../api/agent';
-import { history } from '../..';
 import { toast } from 'react-toastify';
+
+import { history } from '../..';
+import { Activities } from '../api/agent';
+import { IActivity } from '../interfaces/IActivity';
 import { RootStore } from './rootStore';
-//this makes it so you can only modify state within action decorators
-configure({ enforceActions: 'always' });
+
 export default class ActivityStore {
     rootStore: RootStore;
     constructor(rootStore: RootStore) {
