@@ -1,9 +1,16 @@
 import React, { useContext } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Label } from 'semantic-ui-react'
 import { Form as FinalForm, Field} from 'react-final-form'
 import TextInput from '../form/TextInput'
 import { RootStoreContext } from '../../app/stores/rootStore'
 import { IUserFormValues } from '../../app/interfaces/IUser'
+import {FORM_ERROR} from 'final-form'
+import { isRequired, combineValidators } from 'revalidate'
+
+const validate = combineValidators({
+    email: isRequired('email'),
+    password: isRequired('password')
+})
 
 const LoginForm = () => {
     const rootStore = useContext(RootStoreContext)
@@ -11,8 +18,11 @@ const LoginForm = () => {
 
     return (
         <FinalForm
-            onSubmit={(values: IUserFormValues) => login(values)}
-            render={({handleSubmit}) => (
+            onSubmit={(values: IUserFormValues) => login(values).catch(error => ({
+                [FORM_ERROR]: error
+            }))}
+            validate={validate}
+            render={({handleSubmit, submitting, submitError, invalid, pristine, dirtySinceLastSubmit}) => (
                 <Form onSubmit={handleSubmit}>
                     <Field
                         name='email'
@@ -20,12 +30,14 @@ const LoginForm = () => {
                         placeholder='Email'
                     />
                     <Field
-                        name='password'
+                        type="password"
+                        name="password"
                         component={TextInput}
                         placeholder='Password'
-                        type='password'
                     />
-                    <Button positive content='Login'/>
+                    {submitError && !dirtySinceLastSubmit && <React.Fragment><Label color='red' basic content={submitError.statusText}/> <br/></React.Fragment> }
+                    
+                    <Button disabled={invalid && !dirtySinceLastSubmit || pristine} loading={submitting} positive content='Login'/>
                 </Form>
             )}
         />
