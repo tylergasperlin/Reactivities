@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
-import { Form, Button, Label } from 'semantic-ui-react'
+import { Form, Button, Label, Header } from 'semantic-ui-react'
 import { Form as FinalForm, Field} from 'react-final-form'
 import TextInput from '../form/TextInput'
 import { RootStoreContext } from '../../app/stores/rootStore'
 import { IUserFormValues } from '../../app/interfaces/IUser'
 import {FORM_ERROR} from 'final-form'
 import { isRequired, combineValidators } from 'revalidate'
+import ErrorMessage from '../form/ErrorMessage'
 
 const validate = combineValidators({
     email: isRequired('email'),
@@ -23,7 +24,8 @@ const LoginForm = () => {
             }))}
             validate={validate}
             render={({handleSubmit, submitting, submitError, invalid, pristine, dirtySinceLastSubmit}) => (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} error>
+                    <Header as='h2' content='Login to Reactivities' color='teal' textAlign='center'/>
                     <Field
                         name='email'
                         component={TextInput}
@@ -35,13 +37,13 @@ const LoginForm = () => {
                         component={TextInput}
                         placeholder='Password'
                     />
-                    {submitError && !dirtySinceLastSubmit && <React.Fragment><Label color='red' basic content={submitError.statusText}/> <br/></React.Fragment> }
+                    {submitError && !dirtySinceLastSubmit && <ErrorMessage error={submitError} text='Invalid username or password'/>}
                     
-                    <Button disabled={invalid && !dirtySinceLastSubmit || pristine} loading={submitting} positive content='Login'/>
+                    <Button disabled={invalid && !dirtySinceLastSubmit || pristine} loading={submitting} color='teal' content='Login' fluid/>
                 </Form>
             )}
         />
-    )
+)
 }
 
 export default LoginForm
