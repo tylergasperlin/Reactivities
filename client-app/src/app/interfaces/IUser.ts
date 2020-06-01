@@ -1,7 +1,7 @@
 export interface IUser {
     user: string;
     displayName: string;
-    tooken: string;
+    token: string;
     image?: string;
 }
 
