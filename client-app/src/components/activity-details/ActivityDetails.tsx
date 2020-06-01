@@ -3,13 +3,12 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
-import ActivityStore from '../../app/stores/activityStore';
+import { RootStoreContext } from '../../app/stores/rootStore';
 import ActivityDetailedChat from '../activity-detailed-chat/ActivityDetailedChat';
 import ActivityDetailedHeader from '../activity-detailed-header/ActivityDetailedHeader';
 import { ActivityDetailedInfo } from '../activity-detailed-info/ActivityDetailedInfo';
 import { ActivityDetailedSidebar } from '../activity-detailed-sidebar/ActivityDetailedSidebar';
 import { LoadingComponent } from '../loading/LoadingComponent';
-import { RootStoreContext } from '../../app/stores/rootStore';
 
 //within app.tsx we define that the url will have a variable named id (could be anything we want ut we chose id. )
 //beecause of this we create and interface with id and pass it to RouteComponentProps so we can use match.params.id within loadActivity

@@ -1,20 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { Field, Form as FinalForm } from 'react-final-form';
 import { RouteComponentProps } from 'react-router-dom';
+import { combineValidators, composeValidators, hasLengthGreaterThan, isRequired } from 'revalidate';
 import { Button, Form, Grid, Segment } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
-import { Form as FinalForm, Field } from 'react-final-form';
 
 import { ActivityFormValues } from '../../app/interfaces/IActivity';
-import ActivityStore from '../../app/stores/activityStore';
-import TextInput from '../form/TextInput';
-import TextAreaInput from '../form/TextAreaInput';
-import { SelectInput } from '../form/SelectInput';
-import { category } from '../../helpers/categoryOptions';
-import { DateInput } from '../form/DateInput';
-import { combineDateAndTime } from '../../helpers/util';
-import { combineValidators, isRequired, composeValidators, hasLengthGreaterThan } from 'revalidate'
 import { RootStoreContext } from '../../app/stores/rootStore';
+import { category } from '../../helpers/categoryOptions';
+import { combineDateAndTime } from '../../helpers/util';
+import { DateInput } from '../form/DateInput';
+import { SelectInput } from '../form/SelectInput';
+import TextAreaInput from '../form/TextAreaInput';
+import TextInput from '../form/TextInput';
 
 const validate = combineValidators ({
     title: isRequired({ message: 'The event title is required'}),

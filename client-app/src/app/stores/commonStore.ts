@@ -1,5 +1,6 @@
+import { action, observable, reaction } from 'mobx';
+
 import { RootStore } from './rootStore';
-import { observable, action, runInAction, reaction } from 'mobx';
 
 export default class CommonStore {
     rootStore: RootStore;
