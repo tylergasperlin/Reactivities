@@ -4,6 +4,7 @@ import { Item, Label } from 'semantic-ui-react';
 
 import { RootStoreContext } from '../../app/stores/rootStore';
 import ActivityListItem from '../activity-list-item/ActivityListItem';
+import {format} from 'date-fns'
 
 const ActivityList: React.FC = () => {
     const { activityStore } = React.useContext(RootStoreContext);
@@ -13,7 +14,7 @@ const ActivityList: React.FC = () => {
             {activitiesByDate.map(([group, activities]) => (
                 <React.Fragment key={group}>
                     <Label size='large' color='blue'>
-                        {group}
+                        {format(group,'eee do MMMM')}
                     </Label>
 
                     <Item.Group divided>
