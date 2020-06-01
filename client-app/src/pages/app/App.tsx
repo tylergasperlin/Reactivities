@@ -1,6 +1,6 @@
 import './App.css';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, RouteComponentProps, withRouter, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import ActivityDashboard from '../../components/activity-dashboard/ActivityDashboard';
@@ -11,8 +11,24 @@ import { HomePage } from '../HomePage';
 import NotFound from '../../components/not-found/NotFound';
 import { ToastContainer } from 'react-toastify';
 import LoginForm from '../../components/login/LoginForm';
+import { RootStoreContext } from '../../app/stores/rootStore';
+import { LoadingComponent } from '../../components/loading/LoadingComponent';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
+    const rootStore = useContext(RootStoreContext);
+    const {setAppLoaded, token, appLoaded } = rootStore.commonStore;
+    const {getUser} = rootStore.userStore;
+
+    React.useEffect(() => {
+        if(token) {
+            getUser().finally(() => setAppLoaded())
+        } else {
+            setAppLoaded()
+        }
+    }, [getUser, setAppLoaded, token])
+
+    if(!appLoaded) return <LoadingComponent content='Loading app'/>
+
     return (
         <React.Fragment>
             <ToastContainer position='bottom-right' />
