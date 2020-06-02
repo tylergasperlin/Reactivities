@@ -13,6 +13,7 @@ namespace Persistence
         }
         public DbSet<Value> Values { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<UserActivity> UserActivities { get; set; }
 
         //protected can access in defined class and any derived classes from this class
         //override OnModelCreating with the following 
@@ -28,6 +29,18 @@ namespace Persistence
                 new Value { Id = 3, Name = "Value 103" }
 
             );
+
+            builder.Entity<UserActivity>(x => x.HasKey(ua => new { ua.AppUserId, ua.ActivityId }));
+
+            builder.Entity<UserActivity>()
+                .HasOne(u => u.AppUser)
+                .WithMany(a => a.UserActivities)
+                .HasForeignKey(u => u.AppUserId);
+            
+            builder.Entity<UserActivity>()
+                .HasOne(u => u.Activity)
+                .WithMany(u => u.UserActivities)
+                .HasForeignKey(a => a.ActivityId);
         }
     }
 }
