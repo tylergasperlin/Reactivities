@@ -20,7 +20,7 @@ namespace API.Controllers
         // the apicontorller are configured with an cancellationToken
         //we wont use cancellation toke nout of this project from here on due to complexity
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List(CancellationToken ct)
+        public async Task<ActionResult<List<ActivityDto>>> List(CancellationToken ct)
         {
             return await Mediator.Send(new List.Query(), ct);
         }
