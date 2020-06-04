@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
 
 namespace API
 {
@@ -47,6 +48,8 @@ namespace API
             //we want to use mediatr using dependecny injection
             //only need to tell mediator about one handler and then it will reference that assembly for any others
             services.AddMediatR(typeof(List.Handler).Assembly);
+            // dependency injection for automapper
+            services.AddAutoMapper(typeof(List.Handler));
             // This will enable authorization on every controller method
             services.AddControllers(opt => {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();

@@ -45,7 +45,10 @@ namespace Application.Activities
 
                 }
                 //if cancellation is received then the request will be cancelled in the api 
-                var activities = await _context.Activities.ToListAsync(cancellationToken);
+                var activities = await _context.Activities
+                    .Include(x => x.UserActivities)
+                    .ThenInclude(x => x.AppUser)
+                    .ToListAsync();
 
                 return activities;
             }
