@@ -31,11 +31,9 @@ namespace Application.Activities
             //cancellation request - if user refreshes or aborts their request what happends
             public async Task<ActivityDto> Handle(Query request, CancellationToken cancellationToken)
             {
-
+                // Note we are using lazy loading here
                 var activity = await _context.Activities
-                    .Include(x => x.UserActivities)
-                    .ThenInclude(x => x.AppUser)
-                    .SingleOrDefaultAsync(x => x.Id == request.Id);
+                    .FindAsync(request.Id);
 
                 if (activity == null)
                     throw new RestException(HttpStatusCode.NotFound, new { activity = "Not Found" });
